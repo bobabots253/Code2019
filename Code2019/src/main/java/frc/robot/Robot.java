@@ -23,22 +23,21 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private DoubleSolenoid ds1 = new DoubleSolenoid(1, 2), ds2 = new DoubleSolenoid(3, 4);
 
-  private DoubleSolenoid ds[2] = {new DoubleSolenoid(1, 2), new DoubleSolenoid(3, 4)};
-
-  public void solenoidsFwd() { //make solenoids forward
-    ds[0].set(DoubleSolenoid.Value.kForward);
-    ds[1].set(DoubleSolenoid.Value.kForward);
+  public void solenoidsFwd() {
+    ds1.set(DoubleSolenoid.Value.kForward);
+    ds2.set(DoubleSolenoid.Value.kForward);
   }
 
-  public void solenoidsBack() { //make solenoids backwards
-    ds[0].set(DoubleSolenoid.Value.kReverse);
-    ds[1].set(DoubleSolenoid.Value.kReverse);
+  public void solenoidsBack() {
+    ds1.set(DoubleSolenoid.Value.kReverse);
+    ds2.set(DoubleSolenoid.Value.kReverse);
   }
 
-  public void solenoidsOff() { //turn off solenoids
-    ds[0].set(DoubleSolenoid.Value.kOff);
-    ds[1].set(DoubleSolenoid.Value.kOff);
+  public void solenoidsOff() {
+    ds1.set(DoubleSolenoid.Value.kOff);
+    ds2.set(DoubleSolenoid.Value.kOff);
   }
   
   /**
