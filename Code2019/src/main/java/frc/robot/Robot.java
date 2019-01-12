@@ -10,7 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -23,7 +23,23 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private DoubleSolenoid ds1 = new DoubleSolenoid(1, 2), ds2 = new DoubleSolenoid(3, 4);
 
+  public void solenoidsFwd() {
+    ds1.set(DoubleSolenoid.Value.kForward);
+    ds2.set(DoubleSolenoid.Value.kForward);
+  }
+
+  public void solenoidsBack() {
+    ds1.set(DoubleSolenoid.Value.kReverse);
+    ds2.set(DoubleSolenoid.Value.kReverse);
+  }
+
+  public void solenoidsOff() {
+    ds1.set(DoubleSolenoid.Value.kOff);
+    ds2.set(DoubleSolenoid.Value.kOff);
+  }
+  
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
