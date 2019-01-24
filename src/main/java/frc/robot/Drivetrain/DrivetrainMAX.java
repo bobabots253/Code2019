@@ -53,6 +53,7 @@ public class DrivetrainMAX extends Subsystem {
     private DrivetrainMAX(){
 
         //Spark MAX's follows lead TalonSRX(<side>MotorA)
+        //SPARK FOLLOWING TALONS CURRENTLY UNAVAILABLE AS OF 1/23/2019, USE Drivetrain.java for now. 
         leftMotorB.follow(ExternalFollower.kFollowerPhoenix, 1);
         leftMotorC.follow(leftMotorA);
 
