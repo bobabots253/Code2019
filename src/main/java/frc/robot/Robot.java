@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Drivetrain.Drivetrain;
 import frc.robot.Misc.OI;
+import frc.robot.Shooter.ShooterSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
 
   public static Drivetrain drivetrain;
   public static OI oi;
+  public static ShooterSubsystem shootersubsystem;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -42,6 +44,7 @@ public class Robot extends TimedRobot {
 
     drivetrain = Drivetrain.getInstance();
     oi = OI.getInstance();
+    shootersubsystem = ShooterSubsystem.getInstance();
     
   }
 

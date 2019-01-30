@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.Drivetrain.Drive;
+import frc.robot.Shooter.RunShooter;
 
 public class OI {
 
@@ -50,7 +51,7 @@ public class OI {
         return instance;
     }
 
-    private OI() {
+    public OI() {
         xboxcontroller = new XboxController(0);
 
         ButtonA = new JoystickButton(xboxcontroller, 1);
@@ -71,6 +72,12 @@ public class OI {
         dpadLEFT = new XBPovButton(xboxcontroller, LEFT);
         dpadUP_LEFT = new XBPovButton(xboxcontroller, UP_LEFT);
         dpadNONE = new XBPovButton(xboxcontroller, NONE);
+
+        ButtonX.whileHeld(new RunShooter(0.75, 0.75));
+        ButtonX.whenReleased(new RunShooter(0, 0));
+
+        ButtonY.whileHeld(new RunShooter(-0.75, -0.75));
+        ButtonY.whenPressed(new RunShooter(0, 0));
 
     }
 

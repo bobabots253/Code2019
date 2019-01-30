@@ -6,7 +6,7 @@ import frc.robot.Misc.OI;
 
 public class Drive extends Command {
 
-    double left, right;
+    private double left, right;
 
     public Drive() {
         requires(Robot.drivetrain);
