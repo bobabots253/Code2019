@@ -6,15 +6,11 @@ import frc.robot.Misc.OI;
 
 public class RunShooter extends Command {
 
-    double lStage, hStage;
+    private double lStage, hStage;
     
     public RunShooter(double lButtonInput, double hButtonInput){
         this.lStage = lButtonInput;
         this.hStage = hButtonInput;
-        requires(Robot.shootersubsystem);
-    }
-
-    public RunShooter(){
         requires(Robot.shootersubsystem);
     }
     
@@ -22,7 +18,14 @@ public class RunShooter extends Command {
         ShooterSubsystem.runShooter(lStage, hStage);
     }
 
+    @Override
     protected boolean isFinished(){
         return true;
     }
+
+    protected void end(){
+        ShooterSubsystem.runShooter(0, 0);
+
+    }
+
 }

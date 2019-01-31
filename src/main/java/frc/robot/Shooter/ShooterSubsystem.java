@@ -20,8 +20,6 @@ public class ShooterSubsystem extends Subsystem {
         return instance;
     }
 
-    public void initDefaultCommand() {
-    }
 
     private ShooterSubsystem(){
 
@@ -36,5 +34,14 @@ public class ShooterSubsystem extends Subsystem {
         lowerStage.set(ControlMode.PercentOutput, lStage);
         upperStage.set(ControlMode.PercentOutput, hStage);
     }
+    
+    @Override
+    protected void initDefaultCommand() {
+        
+    }
+
+
+
+    
 
 }
