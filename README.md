@@ -10,7 +10,7 @@ Branches Info:
 **Notes**
 1. When declaring compresor, use port 1
 
-## Checklist
+### Checklist
 - [x] Coded Preliminary drivetrain code for the Practice Bot
 - [x] Preliminary Shooter Code
 - [x] Preliminary Vision Code
