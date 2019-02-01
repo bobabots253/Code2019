@@ -9,6 +9,7 @@ Branches Info:
 
 **Notes**
 1. When declaring compresor, use port 1
+2. Initalize OI subsystem instance **AFTER** all other subsystems or else your code will not start
 
 ### Checklist
 - [x] Coded Preliminary drivetrain code for the Practice Bot
