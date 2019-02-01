@@ -8,6 +8,11 @@ Branches Info:
 **practicebot** : Contains code for the various mechanisms. Finalized mechanism code is to be moved to the master branch.
 
 **Notes**
+
 *When declaring compresor, use port 1
+
+- [x] Coded Preliminary drivetrain code for the Practice Bot
+- [x] Preliminary Shooter Code
+- [ ] Velocity Control on Shooter
 
 
