@@ -1,4 +1,4 @@
-## Code2019
+# Code2019
 Destination Deep Space Code for Boba Bots 253
 
 Branches Info:
@@ -10,7 +10,7 @@ Branches Info:
 **Notes**
 1. When declaring compresor, use port 1
 
-# Checklist
+## Checklist
 - [x] Coded Preliminary drivetrain code for the Practice Bot
 - [x] Preliminary Shooter Code
 - [x] Preliminary Vision Code
