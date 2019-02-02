@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Drivetrain.Drivetrain;
 import frc.robot.Misc.OI;
 import frc.robot.Shooter.ShooterSubsystem;
+import edu.wpi.first.wpilibj.Servo;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,6 +32,8 @@ public class Robot extends TimedRobot {
   public static Drivetrain drivetrain;
   public static OI oi;
   public static ShooterSubsystem shootersubsystem;
+
+  Servo servo1 = new Servo(2);
 
   /**
    * This function is run when the robot is first started up and should be
