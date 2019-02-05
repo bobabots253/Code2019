@@ -1,6 +1,7 @@
 package frc.robot.Drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Misc.OI;
 
@@ -16,7 +17,7 @@ public class Drive extends Command {
         double throttle = Robot.oi.getThrottleValue();
         double turn = Robot.oi.getTurnValue();
 
-        //boolean quickturn = Robot.oi.isQuickturn();
+        boolean quickturn = Robot.oi.isQuickturn();
         double qLeft = Robot.oi.getLeftTrigger();
         double qRight = Robot.oi.getRightTrigger();
 
@@ -25,7 +26,9 @@ public class Drive extends Command {
 
         left = OI.exponentiate(left, 2);
         right = OI.exponentiate(right, 2);
-
+        
+        SmartDashboard.putNumber("left", left);
+        SmartDashboard.putNumber("right", right);
         Drivetrain.drive(left, right);
 
     }

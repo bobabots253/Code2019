@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Drivetrain extends Subsystem {
 
     private static TalonSRX leftMotorA = new TalonSRX(1), leftMotorB = new TalonSRX(2), leftMotorC = new TalonSRX(3),
-            rightMotorA = new TalonSRX(4), rightMotorB = new TalonSRX(5), rightMotorC = new TalonSRX(6);
+            rightMotorA = new TalonSRX(4), rightMotorB = new TalonSRX(6), rightMotorC = new TalonSRX(7);
 
     private static final TalonSRX[] motors = { leftMotorA, leftMotorB, leftMotorC, rightMotorA, rightMotorB,
             rightMotorC };
@@ -30,6 +30,7 @@ public class Drivetrain extends Subsystem {
     // Sets up the Drivetrain to automatically run the teleoperated driving command
     // when no other commands are being run
     public void initDefaultCommand() {
+        setDefaultCommand(new Drive());
     }
 
     // Talon configuration should only run once so it goes in the constructor
@@ -41,6 +42,12 @@ public class Drivetrain extends Subsystem {
 
         rightMotorB.follow(rightMotorA);
         rightMotorC.follow(rightMotorA);
+
+        leftMotorB.configOpenloopRamp(0, 10);
+        rightMotorB.configOpenloopRamp(0, 10);
+        leftMotorC.configOpenloopRamp(0, 10);
+        rightMotorC.configOpenloopRamp(0, 10);
+ 
 
         // Drivetrain subsystem negation settings
         Arrays.stream(leftMotors).forEach(motor -> motor.setInverted(true));
@@ -56,7 +63,9 @@ public class Drivetrain extends Subsystem {
             motor.configVoltageCompSaturation(12);
             motor.enableVoltageCompensation(true);
             motor.enableCurrentLimit(true);
-
+            
+            motor.configNeutralDeadband(0.08, 10);
+            
         }
 
         // Left drivetrain encoder

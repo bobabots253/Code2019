@@ -51,7 +51,7 @@ public class OI {
     }
 
     private OI() {
-        xboxcontroller = new XboxController(0);
+        xboxcontroller = new XboxController(1);
 
         ButtonA = new JoystickButton(xboxcontroller, 1);
         ButtonB = new JoystickButton(xboxcontroller, 2);
@@ -71,6 +71,10 @@ public class OI {
         dpadLEFT = new XBPovButton(xboxcontroller, LEFT);
         dpadUP_LEFT = new XBPovButton(xboxcontroller, UP_LEFT);
         dpadNONE = new XBPovButton(xboxcontroller, NONE);
+
+        
+
+        
 
     }
 

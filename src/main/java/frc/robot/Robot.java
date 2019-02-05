@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Drivetrain.Drivetrain;
+
 import frc.robot.Misc.OI;
 
 /**
@@ -28,6 +29,7 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   public static Drivetrain drivetrain;
+ 
   public static OI oi;
 
   /**
@@ -41,10 +43,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
 
     drivetrain = Drivetrain.getInstance();
+  
     oi = OI.getInstance();
     
   }
-
+  @Override
+  public void disabledInit(){
+    Scheduler.getInstance().removeAll();
+  }
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
@@ -104,5 +110,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    Scheduler.getInstance().run();
   }
 }
