@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
 
   public static Drivetrain drivetrain;
   public static OI oi;
-  public static ShooterSubsystem shootersubsystem;
+  public static ShooterSubsystem shooter;
 
   Servo servo1 = new Servo(2);
 
@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
 
     drivetrain = Drivetrain.getInstance();
     oi = OI.getInstance();
-    shootersubsystem = ShooterSubsystem.getInstance();
+    shooter = ShooterSubsystem.getInstance();
     
   }
 

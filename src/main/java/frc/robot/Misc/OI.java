@@ -10,12 +10,9 @@ import static frc.robot.Misc.XBPovButton.UP;
 import static frc.robot.Misc.XBPovButton.UP_LEFT;
 import static frc.robot.Misc.XBPovButton.UP_RIGHT;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.Drivetrain.Drive;
-import frc.robot.Shooter.RunShooter;
 
 public class OI {
 
@@ -73,12 +70,6 @@ public class OI {
         dpadUP_LEFT = new XBPovButton(xboxcontroller, UP_LEFT);
         dpadNONE = new XBPovButton(xboxcontroller, NONE);
 
-        ButtonX.whileHeld(new RunShooter(0.75, 0.75));
-        ButtonX.whenReleased(new RunShooter(0, 0));
-
-        ButtonY.whileHeld(new RunShooter(-0.75, -0.75));
-        ButtonY.whenPressed(new RunShooter(0, 0));
-
     }
 
     /*
@@ -132,5 +123,9 @@ public class OI {
         } else {
             return input * (1.0 - deadband) + Math.signum(input) * deadband;
         }
+    }
+
+    public static double RPMtoTicksPerDecisecond(int RPM){
+        return RPM * (1024/60)/10;
     }
 }
