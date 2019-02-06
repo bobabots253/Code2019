@@ -14,21 +14,24 @@ public class Drive extends Command {
     }
 
     protected void execute() {
+        
         double throttle = Robot.oi.getThrottleValue();
         double turn = Robot.oi.getTurnValue();
-
-        boolean quickturn = Robot.oi.isQuickturn();
-        double qLeft = Robot.oi.getLeftTrigger();
-        double qRight = Robot.oi.getRightTrigger();
-
-        left = throttle + throttle * turn - qLeft + qRight;
-        right = throttle - throttle * turn - qRight + qLeft;
-
-        left = OI.exponentiate(left, 2);
-        right = OI.exponentiate(right, 2);
         
-        SmartDashboard.putNumber("left", left);
-        SmartDashboard.putNumber("right", right);
+        if(throttle != 0){
+            left = throttle + throttle * turn;
+            right = throttle - throttle * turn;
+
+            //left = OI.exponentiate(left, 2);
+            //right = OI.exponentiate(right, 2);
+        } else {
+            left = turn;
+            right = -turn;
+        }
+        
+        SmartDashboard.putNumber("leftCommanded", left);
+        SmartDashboard.putNumber("rightCommanded", right);
+        
         Drivetrain.drive(left, right);
 
     }
