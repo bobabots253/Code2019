@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -11,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Drivetrain extends Subsystem {
 
     private static TalonSRX leftMotorA = new TalonSRX(1), leftMotorB = new TalonSRX(2), leftMotorC = new TalonSRX(3),
-            rightMotorA = new TalonSRX(4), rightMotorB = new TalonSRX(5), rightMotorC = new TalonSRX(6);
+            rightMotorA = new TalonSRX(4), rightMotorB = new TalonSRX(6), rightMotorC = new TalonSRX(7);
 
     private static final TalonSRX[] motors = { leftMotorA, leftMotorB, leftMotorC, rightMotorA, rightMotorB,
             rightMotorC };
@@ -49,12 +50,12 @@ public class Drivetrain extends Subsystem {
         for (TalonSRX motor : motors) {
 
             // Current and voltage settings
-            motor.configPeakCurrentLimit(30);
+            motor.configPeakCurrentLimit(20);
             motor.configPeakCurrentDuration(500);
-            motor.configContinuousCurrentLimit(35);
+            motor.configContinuousCurrentLimit(15);
             motor.configVoltageCompSaturation(12);
             motor.enableVoltageCompensation(true);
-            motor.enableCurrentLimit(true);
+            motor.enableCurrentLimit(false);
 
         }
 
@@ -78,5 +79,17 @@ public class Drivetrain extends Subsystem {
     public static void resetEncoders(){
         rightMotorA.setSelectedSensorPosition(0);
         leftMotorA.setSelectedSensorPosition(0);
+    }
+
+    public static void setBrakeMode(){
+        for(TalonSRX motor : motors){
+            motor.setNeutralMode(NeutralMode.Brake);
+        }
+    }
+
+    public static void setCoastMode(){
+        for(TalonSRX motor : motors){
+            motor.setNeutralMode(NeutralMode.Coast);
+        }
     }
 }
