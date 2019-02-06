@@ -13,6 +13,7 @@ import static frc.robot.Misc.XBPovButton.UP_RIGHT;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.Robot;
 
 public class OI {
 
@@ -70,6 +71,10 @@ public class OI {
         dpadUP_LEFT = new XBPovButton(xboxcontroller, UP_LEFT);
         dpadNONE = new XBPovButton(xboxcontroller, NONE);
 
+        if (Robot.shooter != null) {
+            // TODO: implement controls for shooter
+        }
+
     }
 
     /*
@@ -77,19 +82,19 @@ public class OI {
      */
     public double getThrottleValue() {
         // Controllers y-axes are natively up-negative, down-positive. returns negative
-        return -deadbandX(xboxcontroller.getY(Hand.kLeft), kStickDeadband);
+        return -deadbandX(xboxcontroller.getY(Hand.kLeft), Constants.kJoystickDeadband);
     }
 
     public double getTurnValue() {
-        return deadbandX(xboxcontroller.getX(Hand.kRight), kStickDeadband);
+        return deadbandX(xboxcontroller.getX(Hand.kRight), Constants.kJoystickDeadband);
     }
 
     public double getLeftTrigger() {
-        return deadbandX(xboxcontroller.getTriggerAxis(Hand.kLeft), kTriggerDeadband);
+        return deadbandX(xboxcontroller.getTriggerAxis(Hand.kLeft), Constants.kTriggerDeadband);
     }
 
     public double getRightTrigger() {
-        return deadbandX(xboxcontroller.getTriggerAxis(Hand.kRight), kTriggerDeadband);
+        return deadbandX(xboxcontroller.getTriggerAxis(Hand.kRight), Constants.kTriggerDeadband);
     }
 
     public boolean isQuickturn() {
@@ -125,7 +130,7 @@ public class OI {
         }
     }
 
-    public static double RPMtoTicksPerDecisecond(int RPM){
-        return RPM * (1024/60)/10;
+    public static double RPMtoTicksPerDecisecond(int RPM) {
+        return RPM * (1024 / 60) / 10;
     }
 }

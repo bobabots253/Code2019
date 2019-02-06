@@ -7,14 +7,14 @@ public class Spin extends Command {
 
     private double lspeed, hspeed;
 
-    public Spin(double lspeed, double hspeed){
+    public Spin(double lspeed, double hspeed) {
         requires(Robot.shooter);
-        
+
         this.lspeed = lspeed;
         this.hspeed = hspeed;
     }
 
-    protected void execute(){
+    protected void execute() {
         ShooterSubsystem.spin(lspeed, hspeed);
     }
 
@@ -23,7 +23,7 @@ public class Spin extends Command {
         return false;
     }
 
-    protected void end(){
+    protected void end() {
         ShooterSubsystem.spin(0, 0);
     }
 
