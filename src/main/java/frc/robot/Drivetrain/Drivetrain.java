@@ -20,7 +20,6 @@ public class Drivetrain extends Subsystem {
     private static final TalonSRX[] rightMotors = { rightMotorA, rightMotorB, rightMotorC };
 
     private static Drivetrain instance = null;
-
     public static Drivetrain getInstance() {
         if (instance == null)
             instance = new Drivetrain();
@@ -42,13 +41,11 @@ public class Drivetrain extends Subsystem {
 
         rightMotorB.follow(rightMotorA);
         rightMotorC.follow(rightMotorA);
-
-        leftMotorB.configOpenloopRamp(0, 10);
-        rightMotorB.configOpenloopRamp(0, 10);
-        leftMotorC.configOpenloopRamp(0, 10);
-        rightMotorC.configOpenloopRamp(0, 10);
+        
+        //Setting ramping in open loop control (only needs to be done on masters)
+        leftMotorA.configOpenloopRamp(0, 0);
+        rightMotorA.configOpenloopRamp(0, 0);
  
-
         // Drivetrain subsystem negation settings
         Arrays.stream(leftMotors).forEach(motor -> motor.setInverted(true));
         Arrays.stream(rightMotors).forEach(motor -> motor.setInverted(false));
@@ -57,12 +54,12 @@ public class Drivetrain extends Subsystem {
         for (TalonSRX motor : motors) {
 
             // Current and voltage settings
-            motor.configPeakCurrentLimit(30);
+            motor.configPeakCurrentLimit(20);
             motor.configPeakCurrentDuration(500);
-            motor.configContinuousCurrentLimit(35);
+            motor.configContinuousCurrentLimit(15);
             motor.configVoltageCompSaturation(12);
             motor.enableVoltageCompensation(true);
-            motor.enableCurrentLimit(true);
+            motor.enableCurrentLimit(false);
             
             motor.configNeutralDeadband(0.08, 10);
             
@@ -79,12 +76,14 @@ public class Drivetrain extends Subsystem {
         rightMotorA.setSensorPhase(false);
 
     }
-
+    
+    //Sets all motors to speeds, only requires masters because all other motors follow
     public static void drive(double left, double right){
         leftMotorA.set(ControlMode.PercentOutput, left);
         rightMotorA.set(ControlMode.PercentOutput, right);
     }
-
+    
+    //Resets encoders
     public static void resetEncoders(){
         rightMotorA.setSelectedSensorPosition(0);
         leftMotorA.setSelectedSensorPosition(0);
