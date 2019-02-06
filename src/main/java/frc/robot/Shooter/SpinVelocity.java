@@ -2,6 +2,7 @@ package frc.robot.Shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.Misc.OI;
 
 public class SpinVelocity extends Command {
 
@@ -15,8 +16,8 @@ public class SpinVelocity extends Command {
     }
 
     protected void execute(){
-        ShooterSubsystem.spinVelocity(Robot.oi.RPMtoTicksPerDecisecond((lrpm), 
-                                    Robot.oi.RPMtoTicksPerDecisecond(hrpm));
+        ShooterSubsystem.spinVelocity(OI.RPMtoTicksPerDecisecond((lrpm)), 
+                                    OI.RPMtoTicksPerDecisecond(hrpm));
     }
 
     @Override
