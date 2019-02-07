@@ -1,5 +1,6 @@
 package frc.robot.Drivetrain;
 
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
@@ -31,8 +32,7 @@ public class VisionTrack extends Command {
 
     protected void execute() {
 
-        double qLeft = Robot.oi.getLeftTrigger();
-        double qRight = Robot.oi.getRightTrigger();
+        double turn = Robot.oi.getTurnValue();
 
         double heading_error;
         double distance_error;
@@ -66,8 +66,8 @@ public class VisionTrack extends Command {
         left += left > 0 ? kFriction : -kFriction;
         right += right > 0 ? kFriction : -kFriction;
 
-        Drivetrain.drive(Robot.oi.throttleValue() + kSensQT * (-qLeft + qRight) + left,
-                Robot.oi.throttleValue() + kSensQT * (-qRight + qLeft) + right);
+        Drivetrain.drive(Robot.oi.getThrottleValue() + left + turn,
+                Robot.oi.getThrottleValue() + right - turn);
 
         SmartDashboard.putNumber("left", left);
         SmartDashboard.putNumber("right", right);
@@ -79,7 +79,7 @@ public class VisionTrack extends Command {
     }
 
     protected void end() {
-        DrivetrainSubsystem.drive(0, 0);
+        Drivetrain.drive(0, 0);
     }
 
 }

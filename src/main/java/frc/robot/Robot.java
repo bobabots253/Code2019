@@ -30,10 +30,8 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   public static Drivetrain drivetrain;
-  public static OI oi;
   public static ShooterSubsystem shooter;
-
-  Servo servo1 = new Servo(2);
+  public static OI oi;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -46,8 +44,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
 
     drivetrain = Drivetrain.getInstance();
-    oi = OI.getInstance();
     shooter = ShooterSubsystem.getInstance();
+    oi = OI.getInstance();
     
   }
 

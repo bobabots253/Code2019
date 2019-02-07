@@ -10,15 +10,14 @@ import static frc.robot.Misc.XBPovButton.UP;
 import static frc.robot.Misc.XBPovButton.UP_LEFT;
 import static frc.robot.Misc.XBPovButton.UP_RIGHT;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-
 public class OI {
-
-    private double kTriggerDeadband = 0.05;
-    private double kStickDeadband = 0.05;
 
     private XboxController xboxcontroller;
 
@@ -41,8 +40,10 @@ public class OI {
     private JoystickButton dpadUP_LEFT;
     private JoystickButton dpadNONE;
 
-    private static OI instance = null;
+    private NetworkTable limelight;
+    private double last_valid_x_offset = 0;
 
+    private static OI instance = null;
     public static OI getInstance() {
         if (instance == null)
             instance = new OI();
@@ -71,6 +72,8 @@ public class OI {
         dpadUP_LEFT = new XBPovButton(xboxcontroller, UP_LEFT);
         dpadNONE = new XBPovButton(xboxcontroller, NONE);
 
+        limelight = NetworkTableInstance.getDefault().getTable("limelight");
+
         if (Robot.shooter != null) {
             // TODO: implement controls for shooter
         }
@@ -96,6 +99,35 @@ public class OI {
     public double getRightTrigger() {
         return deadbandX(xboxcontroller.getTriggerAxis(Hand.kRight), Constants.kTriggerDeadband);
     }
+
+    /*
+    * Methods for getting limelight values
+    */
+    public double getxOffset() {
+        SmartDashboard.putNumber("xoffset",-limelight.getEntry("tx").getDouble(0.0));
+        return -limelight.getEntry("tx").getDouble(0);
+    }
+
+    public double getLastValidXOffset(){
+        return last_valid_x_offset;
+    }
+
+    public void setLastValidXOffset(double val){
+        last_valid_x_offset = val;
+    }
+
+    public double getyOffset(){
+        return -limelight.getEntry("ty").getDouble(0.0);
+    }
+
+    public void changeLEDMode(int val){
+        limelight.getEntry("ledMode").setNumber(val);
+    }
+
+    public boolean getTargetValid(){
+        return limelight.getEntry("tv").getDouble(0) == 1;
+    }
+
 
     public boolean isQuickturn() {
 
