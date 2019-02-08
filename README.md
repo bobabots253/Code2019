@@ -1,6 +1,9 @@
 # Code2019
 Destination Deep Space Code for Boba Bots 253
 
+## USE PRACTICEBOT BRANCH AS OF 2/8/2019!
+  use ```git checkout practicebot``` after cloning repository.
+
 Branches Info:
 
 **master** : Contains master code for the competition robot...currently WIP
