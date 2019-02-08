@@ -103,6 +103,10 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
   }
 
+  public void teleopInit(){
+    Drivetrain.setBrakeMode();
+  }
+
   /**
    * This function is called periodically during test mode.
    */

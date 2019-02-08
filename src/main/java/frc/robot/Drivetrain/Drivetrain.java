@@ -1,23 +1,29 @@
 package frc.robot.Drivetrain;
 
 import java.util.Arrays;
-
+import frc.robot.Misc.Constants;
+import com.ctre.phoenix.CANifier;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Drivetrain extends Subsystem {
 
-    private static TalonSRX leftMotorA = new TalonSRX(1), leftMotorB = new TalonSRX(2), leftMotorC = new TalonSRX(3),
-            rightMotorA = new TalonSRX(4), rightMotorB = new TalonSRX(6), rightMotorC = new TalonSRX(7);
+    // Declarations are using IMotorController, the superclass to TalonSRX and
+    // VictorSPX
+    private static TalonSRX leftMotorA = new TalonSRX(1), leftMotorB = new TalonSRX(2), rightMotorA = new TalonSRX(4),
+            rightMotorB = new TalonSRX(6);
 
-    private static final TalonSRX[] motors = { leftMotorA, leftMotorB, leftMotorC, rightMotorA, rightMotorB,
+    private static VictorSPX leftMotorC = new VictorSPX(3), rightMotorC = new VictorSPX(7);
+
+    private static IMotorController[] motors = { leftMotorA, leftMotorB, leftMotorC, rightMotorA, rightMotorB,
             rightMotorC };
-    private static final TalonSRX[] leftMotors = { leftMotorA, leftMotorB, leftMotorC };
-    private static final TalonSRX[] rightMotors = { rightMotorA, rightMotorB, rightMotorC };
+    private static final IMotorController[] leftMotors = { leftMotorA, leftMotorB, leftMotorC };
+    private static final IMotorController[] rightMotors = { rightMotorA, rightMotorB, rightMotorC };
 
     private static Drivetrain instance = null;
 
@@ -30,6 +36,7 @@ public class Drivetrain extends Subsystem {
     // Sets up the Drivetrain to automatically run the teleoperated driving command
     // when no other commands are being run
     public void initDefaultCommand() {
+        setDefaultCommand(new Drive());
     }
 
     // Talon configuration should only run once so it goes in the constructor
@@ -46,50 +53,57 @@ public class Drivetrain extends Subsystem {
         Arrays.stream(leftMotors).forEach(motor -> motor.setInverted(true));
         Arrays.stream(rightMotors).forEach(motor -> motor.setInverted(false));
 
-        // Setting common settings for all mspeed controllers
-        for (TalonSRX motor : motors) {
+        // Setting common settings for all speed controllers
+        for (IMotorController motor : motors) {
+            if (motor instanceof TalonSRX) {
+                TalonSRX talon = (TalonSRX) motor;
 
-            // Current and voltage settings
-            motor.configPeakCurrentLimit(20);
-            motor.configPeakCurrentDuration(500);
-            motor.configContinuousCurrentLimit(15);
-            motor.configVoltageCompSaturation(12);
+                talon.configPeakCurrentLimit(30);
+                talon.configPeakCurrentDuration(500);
+                talon.configContinuousCurrentLimit(35);
+                talon.enableCurrentLimit(false);
+            }
+
+            motor.configVoltageCompSaturation(12, 10);
             motor.enableVoltageCompensation(true);
-            motor.enableCurrentLimit(false);
 
         }
 
         // Left drivetrain encoder
-        //leftMotorA.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
+        // leftMotorA.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1,
+        // 10);
         leftMotorA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
         leftMotorA.setSensorPhase(true);
 
         // Right drivetrain encoder
-        //rightMotorA.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
+        // rightMotorA.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1,
+        // 10);
         rightMotorA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
         rightMotorA.setSensorPhase(false);
 
     }
 
-    public static void drive(double left, double right){
+    public static void drive(double left, double right) {
         leftMotorA.set(ControlMode.PercentOutput, left);
         rightMotorA.set(ControlMode.PercentOutput, right);
     }
 
-    public static void resetEncoders(){
+    public static void resetEncoders() {
         rightMotorA.setSelectedSensorPosition(0);
         leftMotorA.setSelectedSensorPosition(0);
     }
 
-    public static void setBrakeMode(){
-        for(TalonSRX motor : motors){
-            motor.setNeutralMode(NeutralMode.Brake);
-        }
+    public static void setBrakeMode() {
+        
+        leftMotorA.setNeutralMode(NeutralMode.Brake);
+        rightMotorA.setNeutralMode(NeutralMode.Brake);
+    
     }
 
-    public static void setCoastMode(){
-        for(TalonSRX motor : motors){
-            motor.setNeutralMode(NeutralMode.Coast);
-        }
+    public static void setCoastMode() {
+        
+        leftMotorA.setNeutralMode(NeutralMode.Coast);
+        rightMotorA.setNeutralMode(NeutralMode.Coast);
+        
     }
 }
