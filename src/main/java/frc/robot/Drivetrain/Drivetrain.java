@@ -2,6 +2,8 @@ package frc.robot.Drivetrain;
 
 import java.util.Arrays;
 import frc.robot.Misc.Constants;
+import frc.robot.Misc.OI;
+
 import com.ctre.phoenix.CANifier;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -15,10 +17,10 @@ public class Drivetrain extends Subsystem {
 
     // Declarations are using IMotorController, the superclass to TalonSRX and
     // VictorSPX
-    private static TalonSRX leftMotorA = new TalonSRX(1), leftMotorB = new TalonSRX(2), rightMotorA = new TalonSRX(4),
-            rightMotorB = new TalonSRX(6);
+    public static TalonSRX leftMotorA = new TalonSRX(1), leftMotorB = new TalonSRX(2), rightMotorA = new TalonSRX(3),
+            rightMotorB = new TalonSRX(4);
 
-    private static VictorSPX leftMotorC = new VictorSPX(3), rightMotorC = new VictorSPX(7);
+    private static VictorSPX leftMotorC = new VictorSPX(1), rightMotorC = new VictorSPX(2);
 
     private static IMotorController[] motors = { leftMotorA, leftMotorB, leftMotorC, rightMotorA, rightMotorB,
             rightMotorC };
@@ -73,7 +75,7 @@ public class Drivetrain extends Subsystem {
         // leftMotorA.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1,
         // 10);
         leftMotorA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-        leftMotorA.setSensorPhase(true);
+        leftMotorA.setSensorPhase(false);
 
         // Right drivetrain encoder
         // rightMotorA.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1,
@@ -86,6 +88,11 @@ public class Drivetrain extends Subsystem {
     public static void drive(double left, double right) {
         leftMotorA.set(ControlMode.PercentOutput, left);
         rightMotorA.set(ControlMode.PercentOutput, right);
+    }
+
+    public static void driveFTPS(double leftFTPS, double rightFTPS){
+        leftMotorA.set(ControlMode.Velocity, 400);
+        rightMotorA.set(ControlMode.Velocity, 400);
     }
 
     public static void resetEncoders() {
