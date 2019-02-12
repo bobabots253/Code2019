@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-
+import frc.robot.Drivetrain.Drive;
 public class OI {
 
     private XboxController xboxcontroller;
@@ -83,6 +83,8 @@ public class OI {
         if (Robot.shooter != null) {
             // TODO: implement controls for shooter
         }
+
+        ButtonX.whileHeld(new Drive(2, 2));
 
     }
 
@@ -187,5 +189,13 @@ public class OI {
 
     public static double RPMtoTicksPerDecisecond(int RPM) {
         return RPM * (1024 / 60) / 10;
+    }
+
+    public static double ticksPerDSToFeetPerS(int ticks){
+        return (ticks*40*Math.PI)/(12*1024);
+    }
+
+    public static double feetPerSToTicksPerDS(double ftps){
+        return (ftps*12*1024)/(40*Math.PI);
     }
 }
