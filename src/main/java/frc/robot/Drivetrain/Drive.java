@@ -17,11 +17,8 @@ public class Drive extends Command {
         double throttle = Robot.oi.getThrottleValue();
         double turn = Robot.oi.getTurnValue();
 
-        // boolean quickturn = Robot.oi.isQuickturn();
-        // double qLeft = Robot.oi.getLeftTrigger();
-        // double qRight = Robot.oi.getRightTrigger();
-
         if (throttle != 0) {
+
             left = throttle + throttle * turn * Constants.kTurnSens;
             right = throttle - throttle * turn * Constants.kTurnSens;
 
@@ -35,7 +32,7 @@ public class Drive extends Command {
 
             left = OI.exponentiate(left, Constants.kTurnInPlaceExpScale);
             right = OI.exponentiate(right, Constants.kTurnInPlaceExpScale);
-            
+
         }
 
         Drivetrain.drive(left, right);

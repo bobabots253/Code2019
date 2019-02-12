@@ -10,13 +10,17 @@ import static frc.robot.Misc.XBPovButton.UP;
 import static frc.robot.Misc.XBPovButton.UP_LEFT;
 import static frc.robot.Misc.XBPovButton.UP_RIGHT;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+
 public class OI {
 
     private XboxController xboxcontroller;
@@ -42,8 +46,10 @@ public class OI {
 
     private NetworkTable limelight;
     private double last_valid_x_offset = 0;
+    private AHRS navX = new AHRS(Port.kMXP);
 
     private static OI instance = null;
+
     public static OI getInstance() {
         if (instance == null)
             instance = new OI();
@@ -81,6 +87,21 @@ public class OI {
     }
 
     /*
+     * Methods for navX gyro 
+     */
+    public double getLHPHeading(){
+        return -navX.getAngle();
+    }
+
+    public double getRHPHeading(){
+        return navX.getAngle();
+    }
+
+    public void resetGyro(){
+        navX.reset();
+    }
+
+    /*
      * Methods for getting joystick values
      */
     public double getThrottleValue() {
@@ -101,34 +122,36 @@ public class OI {
     }
 
     /*
-    * Methods for getting limelight values
-    */
+     * Methods for getting limelight values
+     */
     public double getxOffset() {
-        SmartDashboard.putNumber("xoffset",-limelight.getEntry("tx").getDouble(0.0));
+        SmartDashboard.putNumber("xoffset", -limelight.getEntry("tx").getDouble(0.0));
         return -limelight.getEntry("tx").getDouble(0);
     }
 
-    public double getLastValidXOffset(){
+    public double getLastValidXOffset() {
         return last_valid_x_offset;
     }
 
-    public void setLastValidXOffset(double val){
+    public void setLastValidXOffset(double val) {
         last_valid_x_offset = val;
     }
 
-    public double getyOffset(){
+    public double getyOffset() {
         return -limelight.getEntry("ty").getDouble(0.0);
     }
 
-    public void changeLEDMode(int val){
+    public void changeLEDMode(int val) {
         limelight.getEntry("ledMode").setNumber(val);
     }
 
-    public boolean getTargetValid(){
+    public boolean getTargetValid() {
         return limelight.getEntry("tv").getDouble(0) == 1;
     }
 
-
+    /*
+     * Methods for driving
+     */
     public boolean isQuickturn() {
 
         boolean leftActive = getLeftTrigger() != 0;
