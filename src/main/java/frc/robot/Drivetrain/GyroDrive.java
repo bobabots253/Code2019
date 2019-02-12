@@ -6,12 +6,12 @@ import frc.robot.Misc.GyroController;
 
 public class GyroDrive extends Command {
 
-    private double last_heading = 0;
     private double kP = 0;
     private double kI = 0;
     private double kD = 0;
 
     private double kF = 0; //Minimum motor output required to spin or move
+    private double last_theta = 0;
     
     //TODO: Remove this and make the command work based on the turn stick 
     //AlSO TODO: Combine this and the other drive command, probably use an enum or something to manage which mode
@@ -25,10 +25,10 @@ public class GyroDrive extends Command {
     }
 
     protected void execute() {
-        double cur_heading = Robot.oi.getLHPHeading(); //Getting the heading (left hand positive)
-        double omega = (cur_heading - last_heading)/0.02; //Deriving smol omega, angular velocity
+        double current_theta = Robot.oi.getLHPHeading(); //Getting the heading (left hand positive)
+        double omega = (current_theta - last_theta)/0.02; //Deriving smol omega, angular velocity
         double ang_adjust = gyro.calculate(target-omega); //Calculating required correction values based on error
-        last_heading = cur_heading;
+        last_theta = current_theta;
 
         double left = -ang_adjust; 
         double right = ang_adjust; 
