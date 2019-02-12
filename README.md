@@ -25,3 +25,4 @@ Branches Info:
 
 
 
+**When adding Code, follow the structure.** Use *common sense*
