@@ -17,15 +17,15 @@ public class Drivetrain extends Subsystem {
 
     // Declarations are using IMotorController, the superclass to TalonSRX and
     // VictorSPX
-    public static TalonSRX leftMotorA = new TalonSRX(1), leftMotorB = new TalonSRX(2), rightMotorA = new TalonSRX(3),
-            rightMotorB = new TalonSRX(4);
+    //public static TalonSRX leftMotorA = new TalonSRX(1), leftMotorB = new TalonSRX(2), rightMotorA = new TalonSRX(3),
+      //      rightMotorB = new TalonSRX(4);
 
-    private static VictorSPX leftMotorC = new VictorSPX(1), rightMotorC = new VictorSPX(2);
+    private static VictorSPX leftMotorA = new VictorSPX(2), leftMotorB = new VictorSPX(3), rightMotorA = new VictorSPX(1), rightMotorB = new VictorSPX(5);
 
-    private static IMotorController[] motors = { leftMotorA, leftMotorB, leftMotorC, rightMotorA, rightMotorB,
-            rightMotorC };
-    private static final IMotorController[] leftMotors = { leftMotorA, leftMotorB, leftMotorC };
-    private static final IMotorController[] rightMotors = { rightMotorA, rightMotorB, rightMotorC };
+    private static IMotorController[] motors = { leftMotorA, leftMotorB, rightMotorA, rightMotorB
+             };
+    private static final IMotorController[] leftMotors = { leftMotorA, leftMotorB  };
+    private static final IMotorController[] rightMotors = { rightMotorA, rightMotorB};
 
     private static Drivetrain instance = null;
 
@@ -46,14 +46,14 @@ public class Drivetrain extends Subsystem {
 
         // Setting masters and followers
         leftMotorB.follow(leftMotorA);
-        leftMotorC.follow(leftMotorA);
+      //  leftMotorC.follow(leftMotorA);
 
         rightMotorB.follow(rightMotorA);
-        rightMotorC.follow(rightMotorA);
+        //rightMotorC.follow(rightMotorA);
 
         // Drivetrain subsystem negation settings
-        Arrays.stream(leftMotors).forEach(motor -> motor.setInverted(true));
-        Arrays.stream(rightMotors).forEach(motor -> motor.setInverted(false));
+        Arrays.stream(leftMotors).forEach(motor -> motor.setInverted(false));
+        Arrays.stream(rightMotors).forEach(motor -> motor.setInverted(true));
 
         // Setting common settings for all speed controllers
         for (IMotorController motor : motors) {
