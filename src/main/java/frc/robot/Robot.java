@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     //    SmartDashboard.putNumber("LEncoder", Drivetrain.leftMotorA.getSelectedSensorPosition());
       //  SmartDashboard.putNumber("REncoder", Drivetrain.rightMotorA.getSelectedSensorPosition());
-
+    SmartDashboard.putNumber("Current Heading", oi.getLHPHeading());
   }
 
   /**

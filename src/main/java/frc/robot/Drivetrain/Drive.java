@@ -1,6 +1,7 @@
 package frc.robot.Drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Misc.Constants;
 import frc.robot.Misc.OI;
@@ -45,6 +46,8 @@ public class Drive extends Command {
                 right = OI.exponentiate(right, Constants.kTurnInPlaceExpScale);
 
             }
+
+            SmartDashboard.putNumber("throt", throttle);
 
             Drivetrain.drive(left, right);
         } else {

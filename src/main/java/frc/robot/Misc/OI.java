@@ -10,14 +10,19 @@ import static frc.robot.Misc.XBPovButton.UP;
 import static frc.robot.Misc.XBPovButton.UP_LEFT;
 import static frc.robot.Misc.XBPovButton.UP_RIGHT;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Drivetrain.Drive;
+import frc.robot.Drivetrain.GyroDrive;
+
 public class OI {
 
     private XboxController xboxcontroller;
@@ -43,8 +48,10 @@ public class OI {
 
     private NetworkTable limelight;
     private double last_valid_x_offset = 0;
+    private AHRS navX = new AHRS(Port.kMXP);
 
     private static OI instance = null;
+
     public static OI getInstance() {
         if (instance == null)
             instance = new OI();
@@ -80,7 +87,25 @@ public class OI {
         }
 
         ButtonX.whileHeld(new Drive(2, 2));
+        ButtonY.whileHeld(new GyroDrive());
 
+    }
+
+    /*
+     * Methods for navX gyro
+     */
+    public double getLHPHeading() {
+        double angle = -navX.getAngle();
+        SmartDashboard.putNumber("angle", angle);
+        return angle;
+    }
+
+    public double getRHPHeading() {
+        return navX.getAngle();
+    }
+
+    public void resetGyro() {
+        navX.reset();
     }
 
     /*
@@ -104,33 +129,32 @@ public class OI {
     }
 
     /*
-    * Methods for getting limelight values
-    */
+     * Methods for getting limelight values
+     */
     public double getxOffset() {
-        SmartDashboard.putNumber("xoffset",-limelight.getEntry("tx").getDouble(0.0));
+        SmartDashboard.putNumber("xoffset", -limelight.getEntry("tx").getDouble(0.0));
         return -limelight.getEntry("tx").getDouble(0);
     }
 
-    public double getLastValidXOffset(){
+    public double getLastValidXOffset() {
         return last_valid_x_offset;
     }
 
-    public void setLastValidXOffset(double val){
+    public void setLastValidXOffset(double val) {
         last_valid_x_offset = val;
     }
 
-    public double getyOffset(){
+    public double getyOffset() {
         return -limelight.getEntry("ty").getDouble(0.0);
     }
 
-    public void changeLEDMode(int val){
+    public void changeLEDMode(int val) {
         limelight.getEntry("ledMode").setNumber(val);
     }
 
-    public boolean getTargetValid(){
+    public boolean getTargetValid() {
         return limelight.getEntry("tv").getDouble(0) == 1;
     }
-
 
     public boolean isQuickturn() {
 
@@ -169,11 +193,11 @@ public class OI {
         return RPM * (1024 / 60) / 10;
     }
 
-    public static double ticksPerDSToFeetPerS(int ticks){
-        return (ticks*40*Math.PI)/(12*1024);
+    public static double ticksPerDSToFeetPerS(int ticks) {
+        return (ticks * 40 * Math.PI) / (12 * 1024);
     }
 
-    public static double feetPerSToTicksPerDS(double ftps){
-        return (ftps*12*1024)/(40*Math.PI);
+    public static double feetPerSToTicksPerDS(double ftps) {
+        return (ftps * 12 * 1024) / (40 * Math.PI);
     }
 }

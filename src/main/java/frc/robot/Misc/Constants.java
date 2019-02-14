@@ -6,7 +6,7 @@ public class Constants {
 
     /* Driver Settings */
     public static final double kJoystickDeadband = 0.03; // Number between 0 and 1
-    public static final double kTriggerDeadband = 0.05; // Number between 0 and 1
+    public static final double kTriggerDeadband = 0.03; // Number between 0 and 1
 
     public static final double kDriveExpScale = 1; // Number between 1 and 2
     public static final double kTurnSens = 1; // Number between 0 and 1

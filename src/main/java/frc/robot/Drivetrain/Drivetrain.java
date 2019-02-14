@@ -1,17 +1,15 @@
 package frc.robot.Drivetrain;
 
 import java.util.Arrays;
-import frc.robot.Misc.Constants;
-import frc.robot.Misc.OI;
 
-import com.ctre.phoenix.CANifier;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drivetrain extends Subsystem {
 
@@ -70,7 +68,7 @@ public class Drivetrain extends Subsystem {
             motor.enableVoltageCompensation(true);
 
         }
-
+        /*
         // Left drivetrain encoder
         // leftMotorA.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1,
         // 10);
@@ -81,13 +79,18 @@ public class Drivetrain extends Subsystem {
         // rightMotorA.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1,
         // 10);
         rightMotorA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-        rightMotorA.setSensorPhase(false);
+        rightMotorA.setSensorPhase(false);*/
+
 
     }
 
     public static void drive(double left, double right) {
         leftMotorA.set(ControlMode.PercentOutput, left);
         rightMotorA.set(ControlMode.PercentOutput, right);
+
+        SmartDashboard.putNumber("left out", left);
+        SmartDashboard.putNumber("right out", right);
+
     }
 
     public static void driveFTPS(double leftFTPS, double rightFTPS){
