@@ -21,6 +21,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Drivetrain.Drive;
+import frc.robot.Drivetrain.GyroDrive;
+
 public class OI {
 
     private XboxController xboxcontroller;
@@ -85,6 +87,7 @@ public class OI {
         }
 
         ButtonX.whileHeld(new Drive(2, 2));
+        ButtonA.whileHeld(new GyroDrive());
 
     }
 
