@@ -18,8 +18,7 @@ public class VisionTrack extends Command {
     private double dist_kI = 0;
     private double dist_kD = 0;
 
-    private double kFriction = 0.05;
-    private double kSensQT = 0.5;
+    private double kF = 0.05;
 
     private VisionController aim = new VisionController(aim_kP, aim_kI, aim_kD, 0.02);
     private VisionController distance = new VisionController(dist_kP, dist_kI, dist_kD, 0.02);
@@ -63,8 +62,8 @@ public class VisionTrack extends Command {
         left = distance_adjust - steering_adjust;
         right = distance_adjust + steering_adjust;
 
-        left += left > 0 ? kFriction : -kFriction;
-        right += right > 0 ? kFriction : -kFriction;
+        left += left > 0 ? kF : -kF;
+        right += right > 0 ? kF : -kF;
 
         Drivetrain.drive(Robot.oi.getThrottleValue() + left + turn,
                 Robot.oi.getThrottleValue() + right - turn);

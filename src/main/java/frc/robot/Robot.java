@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Drivetrain.Drivetrain;
+import frc.robot.Hatch.HatchSubsystem;
 import frc.robot.Misc.OI;
 import frc.robot.Shooter.ShooterSubsystem;
 
@@ -30,6 +31,7 @@ public class Robot extends TimedRobot {
 
   public static Drivetrain drivetrain;
   public static ShooterSubsystem shooter;
+  public static HatchSubsystem hatch;
   public static OI oi;
 
   /**
@@ -44,6 +46,7 @@ public class Robot extends TimedRobot {
 
     drivetrain = Drivetrain.getInstance();
     shooter = ShooterSubsystem.getInstance();
+    hatch = HatchSubsystem.getInstance();
     oi = OI.getInstance();
 
   }
