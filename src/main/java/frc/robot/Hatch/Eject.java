@@ -7,10 +7,15 @@ import frc.robot.Autonomous.AutoDelay;
 public class Eject extends CommandGroup {
     public Eject(){
         if(HatchSubsystem.retainer.get() == Value.kReverse){ // If retainer is engaged
-            addSequential(new Release());
+            addSequential(new RunCommand( () -> HatchSubsystem.release()));
             addSequential(new AutoDelay(0.5));
-            addSequential(new Extend());
+            addSequential(new RunCommand( () -> HatchSubsystem.extend()));
             addSequential(new AutoDelay(0.5));
+            addSequential(new RunCommand( () -> HatchSubsystem.retract());
+        } else {
+            addSequential(new RunCommand( () -> HatchSubsystem.extend()));
+            addSequential(new AutoDelay(0.5));
+            addSequential(new RunCommand( () -> HatchSubsystem.retract());
         }
     }
 }
