@@ -112,6 +112,13 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     Drivetrain.setBrakeMode();
   }
+  
+  @Override
+  public void disabledInit(){ 
+    // Returns all pistons to default positions when robot is disabled
+    HatchSubsystem.retract();
+    HatchSubsystem.release();
+  }
 
   /**
    * This function is called periodically during test mode.
@@ -119,4 +126,5 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+  
 }
