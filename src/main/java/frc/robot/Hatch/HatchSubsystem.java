@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class HatchSubsystem extends Subsystem {
 
-    public static DoubleSolenoid eject = new DoubleSolenoid(1, 6, 7);
-    public static DoubleSolenoid retainer = new DoubleSolenoid(1, 0, 1);
+    public static DoubleSolenoid eject = new DoubleSolenoid(0, 7, 4);
+    public static DoubleSolenoid retainer = new DoubleSolenoid(0, 1, 3);
 
     private static HatchSubsystem instance = null;
     public static HatchSubsystem getInstance() {
@@ -29,7 +29,7 @@ public class HatchSubsystem extends Subsystem {
         eject.set(Value.kReverse);
     }
 
-    public static void alternate_ejector(){
+    public  void alternate_ejector(){
         if(eject.get() == Value.kReverse){
             extend();
         } else {
@@ -46,7 +46,7 @@ public class HatchSubsystem extends Subsystem {
         retainer.set(Value.kForward);
     }
 
-    public static void alternate_retainer(){
+    public void alternate_retainer(){
         if(retainer.get() == Value.kReverse){
             release();
         } else {

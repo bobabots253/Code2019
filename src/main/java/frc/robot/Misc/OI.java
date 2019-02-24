@@ -22,6 +22,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Drivetrain.Drive;
 import frc.robot.Drivetrain.GyroDrive;
+import frc.robot.Hatch.*;
+import frc.robot.Drivetrain.VisionTrack;
+
 
 public class OI {
 
@@ -45,6 +48,8 @@ public class OI {
     private JoystickButton dpadLEFT;
     private JoystickButton dpadUP_LEFT;
     private JoystickButton dpadNONE;
+
+    
 
     private NetworkTable limelight;
     private double last_valid_x_offset = 0;
@@ -85,9 +90,15 @@ public class OI {
         if (Robot.shooter != null) {
             // TODO: implement controls for shooter
         }
+       // ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.ejectHatch());
+      //  ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.ejectHatch()));
+        ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.alternate_ejector()));
 
+        ButtonY.whenPressed(new RunCommand(() -> Robot.hatch.alternate_retainer()));
+        
         ButtonX.whileHeld(new Drive(2, 2));
-        ButtonA.whileHeld(new GyroDrive());
+      //  ButtonA.whileHeld(new GyroDrive());
+      ButtonLB.whileHeld(new VisionTrack());
 
     }
 
