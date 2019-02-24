@@ -18,7 +18,7 @@ Branches Info:
 - [x] Coded Preliminary drivetrain code for the Practice Bot
 - [x] Preliminary Shooter Code
 - [x] Preliminary Vision Code
-- [ ] Hatch Mechanism Code
+- [x] Hatch Mechanism Code
 - [ ] Autonomous Mode
 - [ ] Velocity Control on Shooter
 - [ ] **Code Ready for Competition**
