@@ -17,7 +17,10 @@ public class HatchSubsystem extends Subsystem {
     }
 
     public static void ejectHatch(){
-        new Eject().start();
+        Eject eject = new Eject();
+        eject.start();
+        //eject.close();
+
     }
 
     /* Hatch ejector methods */
