@@ -9,13 +9,16 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Drivetrain.Drivetrain;
+import frc.robot.Drivetrain.flashLED;
 import frc.robot.Hatch.HatchSubsystem;
 import frc.robot.Misc.OI;
 import frc.robot.Shooter.ShooterSubsystem;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,6 +38,8 @@ public class Robot extends TimedRobot {
   public static ShooterSubsystem shooter;
   public static HatchSubsystem hatch;
   public static OI oi;
+
+  Command run;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -109,17 +114,22 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    
+    
   }
 
   public void teleopInit() {
     Drivetrain.setBrakeMode();
+  
+    run = new flashLED(0.81);
   }
   
   @Override
   public void disabledInit(){ 
+
+    run = new flashLED(0.61);
+
     // Returns all pistons to default positions when robot is disabled
-    HatchSubsystem.retract();
-    HatchSubsystem.release();
   }
 
   /**

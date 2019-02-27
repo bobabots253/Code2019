@@ -11,9 +11,15 @@ import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.revrobotics.*;
 
 public class Drivetrain extends Subsystem {
+    Spark LEDSpark = new Spark(1);
 
     // Declarations are using IMotorController, the superclass to TalonSRX and
     // VictorSPX
@@ -43,6 +49,8 @@ public class Drivetrain extends Subsystem {
 
     // Talon configuration should only run once so it goes in the constructor
     private Drivetrain() {
+
+        SmartDashboard.putNumber("LEDSPARK", LEDSpark.get());
 
         // Setting masters and followers
         leftMotorB.follow(leftMotorA);
@@ -96,6 +104,11 @@ public class Drivetrain extends Subsystem {
         rightMotorA.set(ControlMode.Velocity, 400);
     }
 
+    public  void flashLED(double colorPercentage){
+        LEDSpark.set(colorPercentage);
+    }
+
+
     public static void resetEncoders() {
         rightMotorA.setSelectedSensorPosition(0);
         leftMotorA.setSelectedSensorPosition(0);
@@ -114,4 +127,7 @@ public class Drivetrain extends Subsystem {
         rightMotorA.setNeutralMode(NeutralMode.Coast);
         
     }
+
+   
+    
 }

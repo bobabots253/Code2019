@@ -29,7 +29,7 @@ public class HatchSubsystem extends Subsystem {
         eject.set(Value.kReverse);
     }
 
-    public  void alternate_ejector(){
+    public void alternate_ejector(){
         if(eject.get() == Value.kReverse){
             extend();
         } else {

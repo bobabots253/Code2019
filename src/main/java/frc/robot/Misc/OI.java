@@ -92,13 +92,11 @@ public class OI {
         }
        // ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.ejectHatch());
       //  ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.ejectHatch()));
-        ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.alternate_ejector()));
 
-        ButtonY.whenPressed(new RunCommand(() -> Robot.hatch.alternate_retainer()));
-        
-        ButtonX.whileHeld(new Drive(2, 2));
-      //  ButtonA.whileHeld(new GyroDrive());
-      ButtonLB.whileHeld(new VisionTrack());
+        ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.alternate_retainer()));
+        ButtonY.whenPressed(new Eject());
+        //ButtonA.whileHeld(new GyroDrive());
+        ButtonLB.whileHeld(new VisionTrack());
 
     }
 
