@@ -22,7 +22,7 @@ public class VisionController {
         double ret;
 
         if (counter == 0) {
-            ret = kP * error + kD * (error - error/2) / dt;
+            ret = kP * error + kD * (error - error / 2) / dt;
         } else {
             ret = kP * error + kD * (error - last_error) / dt;
             this.last_error = error;

@@ -117,9 +117,6 @@ public class Robot extends TimedRobot {
   
   @Override
   public void disabledInit(){ 
-    // Returns all pistons to default positions when robot is disabled
-    HatchSubsystem.retract();
-    HatchSubsystem.release();
   }
 
   /**

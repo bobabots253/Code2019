@@ -85,13 +85,12 @@ public class Drivetrain extends Subsystem {
 
     }
 
-    
     public static void drive(double left, double right) {
         leftMotorA.set(ControlMode.PercentOutput, left);
         rightMotorA.set(ControlMode.PercentOutput, right);
     }
 
-    public static void driveFTPS(double leftFTPS, double rightFTPS){
+    public static void driveFTPS(double leftFTPS, double rightFTPS) {
         leftMotorA.set(ControlMode.Velocity, 400);
         rightMotorA.set(ControlMode.Velocity, 400);
     }
@@ -102,16 +101,16 @@ public class Drivetrain extends Subsystem {
     }
 
     public static void setBrakeMode() {
-        
+
         leftMotorA.setNeutralMode(NeutralMode.Brake);
         rightMotorA.setNeutralMode(NeutralMode.Brake);
-    
+
     }
 
     public static void setCoastMode() {
-        
+
         leftMotorA.setNeutralMode(NeutralMode.Coast);
         rightMotorA.setNeutralMode(NeutralMode.Coast);
-        
+
     }
 }

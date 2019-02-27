@@ -21,7 +21,7 @@ public class GyroController {
 
         double ret;
         total_error += error;
-  
+
         ret = kP * error + kI * total_error + kD * (error - last_error) / dt;
 
         return ret;

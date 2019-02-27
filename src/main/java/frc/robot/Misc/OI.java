@@ -23,7 +23,6 @@ import frc.robot.Robot;
 import frc.robot.Drivetrain.Drive;
 import frc.robot.Drivetrain.VisionTrack;
 
-
 public class OI {
 
     private XboxController xboxcontroller;
@@ -46,8 +45,6 @@ public class OI {
     private JoystickButton dpadLEFT;
     private JoystickButton dpadUP_LEFT;
     private JoystickButton dpadNONE;
-
-    
 
     private NetworkTable limelight;
     private double last_valid_x_offset = 0;
@@ -88,34 +85,36 @@ public class OI {
         if (Robot.shooter != null) {
             // TODO: implement controls for shooter
         }
-       // ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.ejectHatch());
-      //  ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.ejectHatch()));
-        ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.alternate_ejector()));
 
-        ButtonY.whenPressed(new RunCommand(() -> Robot.hatch.alternate_retainer()));
-        
-        ButtonX.whileHeld(new Drive(2, 2));
-      //  ButtonA.whileHeld(new GyroDrive());
-      ButtonLB.whileHeld(new VisionTrack());
+        if (Robot.hatch != null) {
+            ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.ejectHatch()));
+            ButtonY.whenPressed(new RunCommand(() -> Robot.hatch.alternate_retainer()));
+        }
+
+        if (Robot.drivetrain != null) {
+            ButtonX.whileHeld(new Drive(2, 2));
+            //ButtonA.whileHeld(new GyroDrive());
+            ButtonLB.whileHeld(new VisionTrack());
+        }
 
     }
 
     /*
-     * Methods for navX gyro 
+     * Methods for navX gyro
      */
-    public double getLHPHeading(){
+    public double getLHPHeading() {
         return -navX.getAngle();
     }
 
-    public double getRHPHeading(){
+    public double getRHPHeading() {
         return navX.getAngle();
     }
 
-    public void resetGyro(){
+    public void resetGyro() {
         navX.reset();
     }
 
-    public double getAngularVelocity(){
+    public double getAngularVelocity() {
         return navX.getRate();
     }
 
@@ -207,11 +206,11 @@ public class OI {
         return RPM * (1024 / 60) / 10;
     }
 
-    public static double ticksPerDSToFeetPerS(int ticks){
-        return (ticks*40*Math.PI)/(12*1024);
+    public static double ticksPerDSToFeetPerS(int ticks) {
+        return (ticks * 40 * Math.PI) / (12 * 1024);
     }
 
-    public static double feetPerSToTicksPerDS(double ftps){
-        return (ftps*12*1024)/(40*Math.PI);
+    public static double feetPerSToTicksPerDS(double ftps) {
+        return (ftps * 12 * 1024) / (40 * Math.PI);
     }
 }
