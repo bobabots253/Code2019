@@ -15,14 +15,12 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Drivetrain.Drive;
-import frc.robot.Drivetrain.GyroDrive;
-import frc.robot.Hatch.*;
 import frc.robot.Drivetrain.VisionTrack;
 
 
@@ -53,7 +51,7 @@ public class OI {
 
     private NetworkTable limelight;
     private double last_valid_x_offset = 0;
-    private AHRS navX = new AHRS(Port.kMXP);
+    private AHRS navX = new AHRS(SPI.Port.kMXP);
 
     private static OI instance = null;
 
@@ -115,6 +113,10 @@ public class OI {
 
     public void resetGyro(){
         navX.reset();
+    }
+
+    public double getAngularVelocity(){
+        return navX.getRate();
     }
 
     /*

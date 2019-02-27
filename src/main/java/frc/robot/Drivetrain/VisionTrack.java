@@ -4,7 +4,6 @@ package frc.robot.Drivetrain;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.Misc.VisionController;
 
 public class VisionTrack extends Command {
 

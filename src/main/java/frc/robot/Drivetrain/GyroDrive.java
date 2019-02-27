@@ -2,7 +2,6 @@ package frc.robot.Drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.Misc.GyroController;
 
 public class GyroDrive extends Command {
 
@@ -25,10 +24,11 @@ public class GyroDrive extends Command {
     }
 
     protected void execute() {
-        double current_theta = Robot.oi.getLHPHeading(); //Getting the heading (left hand positive)
-        double omega = (current_theta - last_theta)/0.02; //Deriving smol omega, angular velocity
+        //double current_theta = Robot.oi.getLHPHeading(); //Getting the heading (left hand positive)
+        //double omega = (current_theta - last_theta)/0.02; //Deriving smol omega, angular velocity
+        double omega = Robot.oi.getAngularVelocity();
         double ang_adjust = gyro.calculate(target-omega); //Calculating required correction values based on error
-        last_theta = current_theta;
+        //last_theta = current_theta;
 
         double left = -ang_adjust; 
         double right = ang_adjust; 
