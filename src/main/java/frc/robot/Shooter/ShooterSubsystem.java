@@ -11,8 +11,8 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 public class ShooterSubsystem extends Subsystem {
 
-    private static VictorSPX motorLow = new VictorSPX(7);
-    private static VictorSPX motorHigh = new VictorSPX(8);
+    private static TalonSRX motorLow = new TalonSRX(5);
+    private static TalonSRX motorHigh = new TalonSRX(8);
 
     // Safety net ensuring only one shooter subsystem can be created
     private static ShooterSubsystem instance = null;
@@ -48,7 +48,7 @@ public class ShooterSubsystem extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-
+        setDefaultCommand(new Spin(0,0));
     }
 
 }

@@ -15,7 +15,7 @@ public class Spin extends Command {
     }
 
     protected void execute() {
-        ShooterSubsystem.spin(lspeed, hspeed);
+        ShooterSubsystem.spin(Robot.oi.meme1.getY(), Robot.oi.meme2.getY());
     }
 
     @Override

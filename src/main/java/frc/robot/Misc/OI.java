@@ -16,17 +16,19 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Drivetrain.Drive;
-import frc.robot.Drivetrain.GyroDrive;
-import frc.robot.Hatch.*;
 import frc.robot.Drivetrain.VisionTrack;
-
+import frc.robot.Shooter.Spin;
 
 public class OI {
+
+    public Joystick meme1 = new Joystick(2);
+    public Joystick meme2 = new Joystick(3);
 
     private XboxController xboxcontroller;
 
@@ -88,7 +90,11 @@ public class OI {
         limelight = NetworkTableInstance.getDefault().getTable("limelight");
 
         if (Robot.shooter != null) {
-            // TODO: implement controls for shooter
+            /*ButtonA.whenPressed(new Spin(1, -1));
+            ButtonA.whenReleased(new Spin(0, 0));
+
+            ButtonRB.whenPressed(new Spin(-0.25, 0.25));
+            ButtonRB.whenReleased(new Spin(0, 0));*/
         }
        // ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.ejectHatch());
       //  ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.ejectHatch()));
