@@ -7,8 +7,9 @@ import java.util.Arrays;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -22,13 +23,15 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 //NOTE: If the folder home/lvuser/dtchar does not exist, it will crash
 
 public class VeloCharRobot extends TimedRobot {
-    private static TalonSRX leftMotorA = new TalonSRX(1), leftMotorB = new TalonSRX(2), leftMotorC = new TalonSRX(3),
-            rightMotorA = new TalonSRX(4), rightMotorB = new TalonSRX(6), rightMotorC = new TalonSRX(7);
+    public static TalonSRX leftMotorA = new TalonSRX(1), leftMotorB = new TalonSRX(2), rightMotorA = new TalonSRX(3),
+            rightMotorB = new TalonSRX(4);
 
-    private static final TalonSRX[] motors = { leftMotorA, leftMotorB, leftMotorC, rightMotorA, rightMotorB,
+    private static VictorSPX leftMotorC = new VictorSPX(1), rightMotorC = new VictorSPX(2);
+
+    private static IMotorController[] motors = { leftMotorA, leftMotorB, leftMotorC, rightMotorA, rightMotorB,
             rightMotorC };
-    private static final TalonSRX[] leftMotors = { leftMotorA, leftMotorB, leftMotorC };
-    private static final TalonSRX[] rightMotors = { rightMotorA, rightMotorB, rightMotorC };
+    private static final IMotorController[] leftMotors = { leftMotorA, leftMotorB, leftMotorC };
+    private static final IMotorController[] rightMotors = { rightMotorA, rightMotorB, rightMotorC };
 
     private PrintWriter csvWriter = null;
     private Joystick joystick = new Joystick(0);
@@ -49,26 +52,42 @@ public class VeloCharRobot extends TimedRobot {
         Arrays.stream(leftMotors).forEach(motor -> motor.setInverted(true));
         Arrays.stream(rightMotors).forEach(motor -> motor.setInverted(false));
 
-        // Setting common settings for all mspeed controllers
-        for (TalonSRX motor : motors) {
+        // Setting masters and followers
+        leftMotorB.follow(leftMotorA);
+        leftMotorC.follow(leftMotorA);
 
-            // Current and voltage settings
-            motor.configPeakCurrentLimit(20);
-            motor.configPeakCurrentDuration(500);
-            motor.configContinuousCurrentLimit(15);
-            motor.configVoltageCompSaturation(12);
+        rightMotorB.follow(rightMotorA);
+        rightMotorC.follow(rightMotorA);
+
+        // Drivetrain subsystem negation settings
+        Arrays.stream(leftMotors).forEach(motor -> motor.setInverted(true));
+        Arrays.stream(rightMotors).forEach(motor -> motor.setInverted(false));
+
+        // Setting common settings for all speed controllers
+        for (IMotorController motor : motors) {
+            if (motor instanceof TalonSRX) {
+                TalonSRX talon = (TalonSRX) motor;
+
+                talon.configPeakCurrentLimit(30);
+                talon.configPeakCurrentDuration(500);
+                talon.configContinuousCurrentLimit(35);
+                talon.enableCurrentLimit(false);
+            }
+
+            motor.configVoltageCompSaturation(12, 10);
             motor.enableVoltageCompensation(true);
-            motor.enableCurrentLimit(false);
 
         }
 
         // Left drivetrain encoder
-        //leftMotorA.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
+        // leftMotorA.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1,
+        // 10);
         leftMotorA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-        leftMotorA.setSensorPhase(true);
+        leftMotorA.setSensorPhase(false);
 
         // Right drivetrain encoder
-        //rightMotorA.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
+        // rightMotorA.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1,
+        // 10);
         rightMotorA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
         rightMotorA.setSensorPhase(false);
 

@@ -10,27 +10,29 @@ public class HatchSubsystem extends Subsystem {
     public static DoubleSolenoid retainer = new DoubleSolenoid(0, 1, 3);
 
     private static HatchSubsystem instance = null;
+
     public static HatchSubsystem getInstance() {
         if (instance == null)
             instance = new HatchSubsystem();
         return instance;
     }
 
-    public static void ejectHatch(){
+    public void ejectHatch() {
         new Eject().start();
+
     }
 
     /* Hatch ejector methods */
-    public static void extend() {
+    public void extend() {
         eject.set(Value.kForward);
     }
 
-    public static void retract() {
+    public void retract() {
         eject.set(Value.kReverse);
     }
 
-    public  void alternate_ejector(){
-        if(eject.get() == Value.kReverse){
+    public void alternate_ejector() {
+        if (eject.get() == Value.kReverse) {
             extend();
         } else {
             retract();
@@ -38,16 +40,16 @@ public class HatchSubsystem extends Subsystem {
     }
 
     /* Retaining clamp methods */
-    public static void retain(){
+    public void retain() {
         retainer.set(Value.kReverse);
     }
 
-    public static void release(){
+    public void release() {
         retainer.set(Value.kForward);
     }
 
-    public void alternate_retainer(){
-        if(retainer.get() == Value.kReverse){
+    public void alternate_retainer() {
+        if (retainer.get() == Value.kReverse) {
             release();
         } else {
             retain();

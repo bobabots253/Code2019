@@ -15,15 +15,22 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+<<<<<<< HEAD
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.Joystick;
+=======
+import edu.wpi.first.wpilibj.SPI;
+>>>>>>> practicebot
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Drivetrain.Drive;
 import frc.robot.Drivetrain.VisionTrack;
+<<<<<<< HEAD
 import frc.robot.Shooter.Spin;
+=======
+>>>>>>> practicebot
 
 public class OI {
 
@@ -51,11 +58,9 @@ public class OI {
     private JoystickButton dpadUP_LEFT;
     private JoystickButton dpadNONE;
 
-    
-
     private NetworkTable limelight;
     private double last_valid_x_offset = 0;
-    private AHRS navX = new AHRS(Port.kMXP);
+    private AHRS navX = new AHRS(SPI.Port.kMXP);
 
     private static OI instance = null;
 
@@ -96,31 +101,37 @@ public class OI {
             ButtonRB.whenPressed(new Spin(-0.25, 0.25));
             ButtonRB.whenReleased(new Spin(0, 0));*/
         }
-       // ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.ejectHatch());
-      //  ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.ejectHatch()));
-        ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.alternate_ejector()));
 
-        ButtonY.whenPressed(new RunCommand(() -> Robot.hatch.alternate_retainer()));
-        
-        ButtonX.whileHeld(new Drive(2, 2));
-      //  ButtonA.whileHeld(new GyroDrive());
-      ButtonLB.whileHeld(new VisionTrack());
+        if (Robot.hatch != null) {
+            ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.ejectHatch()));
+            ButtonY.whenPressed(new RunCommand(() -> Robot.hatch.alternate_retainer()));
+        }
+
+        if (Robot.drivetrain != null) {
+            ButtonX.whileHeld(new Drive(2, 2));
+            //ButtonA.whileHeld(new GyroDrive());
+            ButtonLB.whileHeld(new VisionTrack());
+        }
 
     }
 
     /*
-     * Methods for navX gyro 
+     * Methods for navX gyro
      */
-    public double getLHPHeading(){
+    public double getLHPHeading() {
         return -navX.getAngle();
     }
 
-    public double getRHPHeading(){
+    public double getRHPHeading() {
         return navX.getAngle();
     }
 
-    public void resetGyro(){
+    public void resetGyro() {
         navX.reset();
+    }
+
+    public double getAngularVelocity() {
+        return navX.getRate();
     }
 
     /*
@@ -211,11 +222,11 @@ public class OI {
         return RPM * (1024 / 60) / 10;
     }
 
-    public static double ticksPerDSToFeetPerS(int ticks){
-        return (ticks*40*Math.PI)/(12*1024);
+    public static double ticksPerDSToFeetPerS(int ticks) {
+        return (ticks * 40 * Math.PI) / (12 * 1024);
     }
 
-    public static double feetPerSToTicksPerDS(double ftps){
-        return (ftps*12*1024)/(40*Math.PI);
+    public static double feetPerSToTicksPerDS(double ftps) {
+        return (ftps * 12 * 1024) / (40 * Math.PI);
     }
 }
