@@ -15,22 +15,15 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-<<<<<<< HEAD
-import edu.wpi.first.wpilibj.I2C.Port;
-import edu.wpi.first.wpilibj.Joystick;
-=======
 import edu.wpi.first.wpilibj.SPI;
->>>>>>> practicebot
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Drivetrain.Drive;
 import frc.robot.Drivetrain.VisionTrack;
-<<<<<<< HEAD
 import frc.robot.Shooter.Spin;
-=======
->>>>>>> practicebot
 
 public class OI {
 
