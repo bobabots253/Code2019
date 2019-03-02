@@ -15,20 +15,21 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.Drivetrain.Drive;
+import frc.robot.Drivetrain.GyroDrive;
 import frc.robot.Drivetrain.VisionTrack;
-import frc.robot.Shooter.Spin;
+import frc.robot.Shooter.ShooterSubsystem.Stage;
+import frc.robot.Shooter.SpinIndiv;
 
 public class OI {
 
-    public Joystick meme1 = new Joystick(2);
-    public Joystick meme2 = new Joystick(3);
+    public Joystick joystick2 = new Joystick(2);
+    public Joystick joystick3 = new Joystick(3);
 
     private XboxController xboxcontroller;
 
@@ -51,9 +52,12 @@ public class OI {
     private JoystickButton dpadUP_LEFT;
     private JoystickButton dpadNONE;
 
+    private JoystickButton triggerLeft;
+    private JoystickButton triggerRight;
+
     private NetworkTable limelight;
     private double last_valid_x_offset = 0;
-    private AHRS navX = new AHRS(SPI.Port.kMXP);
+    private AHRS navX = new AHRS(SPI.Port.kMXP, (byte)200);
 
     private static OI instance = null;
 
@@ -85,14 +89,17 @@ public class OI {
         dpadUP_LEFT = new XBPovButton(xboxcontroller, UP_LEFT);
         dpadNONE = new XBPovButton(xboxcontroller, NONE);
 
+        triggerLeft = new TriggerButton(xboxcontroller, Hand.kLeft);
+        triggerRight = new TriggerButton(xboxcontroller, Hand.kRight);
+
         limelight = NetworkTableInstance.getDefault().getTable("limelight");
 
         if (Robot.shooter != null) {
-            /*ButtonA.whenPressed(new Spin(1, -1));
-            ButtonA.whenReleased(new Spin(0, 0));
+            ButtonA.whenPressed(new SpinIndiv(1, Stage.LOWER));
+            ButtonA.whenReleased(new SpinIndiv(0, Stage.LOWER));
 
-            ButtonRB.whenPressed(new Spin(-0.25, 0.25));
-            ButtonRB.whenReleased(new Spin(0, 0));*/
+            ButtonX.whenPressed(new SpinIndiv(1, Stage.HIGHER));
+            ButtonX.whenReleased(new SpinIndiv(0, Stage.HIGHER));
         }
 
         if (Robot.hatch != null) {
@@ -101,8 +108,7 @@ public class OI {
         }
 
         if (Robot.drivetrain != null) {
-            ButtonX.whileHeld(new Drive(2, 2));
-            //ButtonA.whileHeld(new GyroDrive());
+            ButtonRB.whileHeld(new GyroDrive());
             ButtonLB.whileHeld(new VisionTrack());
         }
 
@@ -124,7 +130,7 @@ public class OI {
     }
 
     public double getAngularVelocity() {
-        return navX.getRate();
+        return navX.getRate(); // May have to make this negative
     }
 
     /*
@@ -198,7 +204,7 @@ public class OI {
     }
 
     public static double exponentiate(double input, double power) {
-        return Math.copySign(Math.pow(input, power), input);
+        return Math.copySign(Math.abs(Math.pow(input, power)), input);
     }
 
     public static double deadbandY(double input, double deadband) {

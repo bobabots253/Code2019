@@ -2,20 +2,15 @@ package frc.robot.Drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.Misc.Constants;
 
 public class GyroDrive extends Command {
 
-    private double kP = 0;
-    private double kI = 0;
-    private double kD = 0;
+    private double kP = Constants.kP_Gyro;
+    private double kI = Constants.kI_Gyro;
+    private double kD = Constants.kD_Gyro;
 
-    private double kF = 0; // Minimum motor output required to spin or move
-    private double last_theta = 0;
-
-    // TODO: Remove this and make the command work based on the turn stick
-    // AlSO TODO: Combine this and the other drive command, probably use an enum or
-    // something to manage which mode
-    private double target = 0;
+    private double kF = Constants.kF; 
 
     // 0.02 is robot loop speed (50Hz), consider placing into Notifier running
     // something faster for better accuracy
@@ -26,32 +21,41 @@ public class GyroDrive extends Command {
     }
 
     protected void execute() {
-        // double current_theta = Robot.oi.getLHPHeading(); //Getting the heading (left
-        // hand positive)
-        // double omega = (current_theta - last_theta)/0.02; //Deriving smol omega,
-        // angular velocity
-        double omega = Robot.oi.getAngularVelocity();
-        double ang_adjust = gyro.calculate(target - omega); // Calculating required correction values based on error
-        // last_theta = current_theta;
+        // Getting desired speeds
+        double throttle = Robot.oi.getThrottleValue();
+        double turn = Robot.oi.getTurnValue() * Constants.kTurnScaleGyro;
 
-        double left = -ang_adjust;
-        double right = ang_adjust;
+        // Calculating output
+        double omega = Robot.oi.getAngularVelocity();
+        double ang_adjust = gyro.calculate(turn - omega); // Calculating required correction values based on error
+
+        double left = throttle - ang_adjust;
+        double right = throttle + ang_adjust;
 
         // Makes sure kF is applied in the right direction
-        left += left > 0 ? kF : -kF;
-        right += right > 0 ? kF : -kF;
+        if (left > 0) {
+            left += kF;
+        } else if (left < 0) {
+            left -= kF;
+        }
+        if (right > 0) {
+            right += kF;
+        } else if (right < 0) {
+            right -= kF;
+        }
 
-        // Drives robot at calculated speeds (plus current throttle and turn values)
-        Drivetrain.drive(Robot.oi.getThrottleValue() + left + Robot.oi.getTurnValue(),
-                Robot.oi.getThrottleValue() + right - Robot.oi.getTurnValue());
+        // Drives robot at calculated speeds
+        Drivetrain.drive(left, right);
 
     }
 
+    // Does not need to finish, should be run until interrupted
     @Override
     protected boolean isFinished() {
         return false;
     }
 
+    // Safety when command ends
     @Override
     protected void end() {
         Drivetrain.drive(0, 0);

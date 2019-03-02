@@ -3,11 +3,12 @@ package frc.robot.Hatch;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Misc.Constants;
 
 public class HatchSubsystem extends Subsystem {
 
-    public static DoubleSolenoid eject = new DoubleSolenoid(0, 7, 4);
-    public static DoubleSolenoid retainer = new DoubleSolenoid(0, 1, 3);
+    public static DoubleSolenoid eject = new DoubleSolenoid(Constants.kPCM_ID, Constants.kEjectForward, Constants.kEjectReverse);
+    public static DoubleSolenoid retainer = new DoubleSolenoid(Constants.kPCM_ID, Constants.kRetainerForward, Constants.kRetainerReverse);
 
     private static HatchSubsystem instance = null;
 

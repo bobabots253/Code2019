@@ -41,6 +41,14 @@ public class ShooterSubsystem extends Subsystem {
         motorHigh.set(ControlMode.PercentOutput, hvolt);
     }
 
+    public static void spin(double speed, Stage stage){
+        if(stage == Stage.LOWER){
+            motorLow.set(ControlMode.PercentOutput, speed);
+        } else if(stage == Stage.HIGHER){
+            motorHigh.set(ControlMode.PercentOutput, speed);
+        }
+    }
+
     public static void spinVelocity(double lvelo, double hvelo) {
         motorLow.set(ControlMode.Velocity, lvelo);
         motorHigh.set(ControlMode.Velocity, hvelo);
@@ -48,7 +56,17 @@ public class ShooterSubsystem extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new Spin(0,0));
+        setDefaultCommand(new SpinPaired(Robot.oi.joystick2, Robot.oi.joystick3));
+    }
+
+    public enum Stage {
+        LOWER(0), HIGHER(1);
+
+        public final int value;
+
+        Stage(int value){
+            this.value = value;
+        }
     }
 
 }

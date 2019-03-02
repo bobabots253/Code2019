@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Drivetrain.Drivetrain;
 import frc.robot.Hatch.HatchSubsystem;
+import frc.robot.Misc.Constants;
 import frc.robot.Misc.OI;
 import frc.robot.Shooter.ShooterSubsystem;
 
@@ -25,7 +26,7 @@ import frc.robot.Shooter.ShooterSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-  Compressor compressor = new Compressor(0);
+  Compressor compressor = new Compressor(Constants.kPCM_ID);
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
@@ -50,8 +51,6 @@ public class Robot extends TimedRobot {
     shooter = ShooterSubsystem.getInstance();
     hatch = HatchSubsystem.getInstance();
     oi = OI.getInstance();
-
-    compressor.stop();
 
   }
 
@@ -115,11 +114,16 @@ public class Robot extends TimedRobot {
 
   public void teleopInit() {
     Drivetrain.setBrakeMode();
+
+    // Returns all pistons to default positions when robot is first enabled
+    hatch.release();
+    hatch.retract();
+
   }
   
   @Override
   public void disabledInit(){ 
-    // Returns all pistons to default positions when robot is disabled
+    
 
   }
 

@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class XBPovButton extends JoystickButton{
-    private boolean toggle = true;
 
     private GenericHID joystickNumber;
     private int xboxPOV;
@@ -18,16 +17,6 @@ public class XBPovButton extends JoystickButton{
 
     public boolean get(){
         return joystickNumber.getPOV() == xboxPOV;
-    }
-
-    public boolean isPressed(){
-        if(get() && toggle){
-            toggle = false;
-            return true;
-        }else if(!get()){
-            toggle = true;
-        }
-        return false;
     }
 
     public static final int
