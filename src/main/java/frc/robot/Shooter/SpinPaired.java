@@ -16,11 +16,13 @@ public class SpinPaired extends Command {
     }
 
     public SpinPaired(Joystick leftStick, Joystick rightStick){
+        requires(Robot.shooter);
         lspeed = leftStick.getY();
         hspeed = leftStick.getX();
     }
     
     public SpinPaired(Joystick stick){
+        requires(Robot.shooter);
         lspeed = stick.getY();
         hspeed = -stick.getY();
     }
