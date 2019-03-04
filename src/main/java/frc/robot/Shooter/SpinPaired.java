@@ -6,10 +6,15 @@ import frc.robot.Robot;
 
 public class SpinPaired extends Command {
 
+    private InputType input;
+
     private double lspeed, hspeed;
+    private Joystick leftStick, rightStick;
+    private Joystick stick;
 
     public SpinPaired(double lspeed, double hspeed) {
         requires(Robot.shooter);
+        this.input = InputType.SPEED;
 
         this.lspeed = lspeed;
         this.hspeed = hspeed;
@@ -17,23 +22,32 @@ public class SpinPaired extends Command {
 
     public SpinPaired(Joystick leftStick, Joystick rightStick){
         requires(Robot.shooter);
-        lspeed = leftStick.getY();
-        hspeed = leftStick.getX();
+        this.input = InputType.DOUBLE_JOYSTICK;
+
+        this.leftStick = leftStick;
+        this.rightStick = rightStick;
     }
     
     public SpinPaired(Joystick stick){
         requires(Robot.shooter);
-        lspeed = stick.getY();
-        hspeed = -stick.getY();
+        this.input = InputType.SINGLE_JOYSTICK;
+
+        this.stick = stick;
     }
 
     protected void execute() {
-        if(Robot.oi.getRightTrigger() > 0.1 && Robot.oi.getLeftTrigger() < 0.1){
-            ShooterSubsystem.spin((Robot.oi.getRightTrigger())/1.5);
-        } else if(Robot.oi.getLeftTrigger() > 0.1 && Robot.oi.getRightTrigger() < 0.1){
-        ShooterSubsystem.spin(-Robot.oi.getLeftTrigger()/3);
-        }else if(Robot.oi.getLeftTrigger() < 0.1 && Robot.oi.getRightTrigger() < 0.1){
-            ShooterSubsystem.spin(0);
+        switch(input){
+            case SPEED:
+                ShooterSubsystem.spin(this.lspeed, this.hspeed);
+                break;
+            case SINGLE_JOYSTICK:
+                ShooterSubsystem.spin(this.stick.getY(), -this.stick.getY());
+                break;
+            case DOUBLE_JOYSTICK:
+                ShooterSubsystem.spin(this.leftStick.getY(), this.rightStick.getY());
+            default:
+                ShooterSubsystem.spin(0, 0);
+                break;
         }
     }
 
@@ -44,6 +58,16 @@ public class SpinPaired extends Command {
 
     protected void end() {
         ShooterSubsystem.spin(0, 0);
+    }
+
+    private enum InputType {
+        SINGLE_JOYSTICK(0), DOUBLE_JOYSTICK(1), SPEED(2);
+
+        public final int value;
+
+        private InputType(int value){
+            this.value = value;
+        }
     }
 
 }

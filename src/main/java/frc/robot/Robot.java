@@ -17,6 +17,7 @@ import frc.robot.Drivetrain.Drivetrain;
 import frc.robot.Hatch.HatchSubsystem;
 import frc.robot.Misc.Constants;
 import frc.robot.Misc.OI;
+import frc.robot.Misc.OI.LED_STATE;
 import frc.robot.Shooter.ShooterSubsystem;
 
 /**
@@ -118,6 +119,7 @@ public class Robot extends TimedRobot {
   }
 
   public void teleopInit() {
+    Robot.oi.setLED(LED_STATE.OFF);
     Drivetrain.setBrakeMode();
 
     // Returns all pistons to default positions when robot is first enabled
@@ -128,6 +130,7 @@ public class Robot extends TimedRobot {
   
   @Override
   public void disabledInit(){ 
+    Robot.oi.setLED(LED_STATE.OFF);
     
 
   }

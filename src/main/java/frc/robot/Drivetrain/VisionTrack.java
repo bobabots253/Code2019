@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Misc.Constants;
+import frc.robot.Misc.OI.LED_STATE;
 
 public class VisionTrack extends Command {
 
@@ -28,6 +29,7 @@ public class VisionTrack extends Command {
     }
 
     protected void execute() {
+        Robot.oi.setLED(LED_STATE.ON);
 
         double turn = Robot.oi.getTurnValue();
         double throttle = Robot.oi.getThrottleValue();
