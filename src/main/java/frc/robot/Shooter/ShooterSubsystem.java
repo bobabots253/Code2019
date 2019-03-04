@@ -41,6 +41,11 @@ public class ShooterSubsystem extends Subsystem {
         motorHigh.set(ControlMode.PercentOutput, hvolt);
     }
 
+    public static void spin(double input){
+        motorLow.set(ControlMode.PercentOutput, input);
+        motorHigh.set(ControlMode.PercentOutput, -input);
+    }
+
     public static void spin(double speed, Stage stage){
         if(stage == Stage.LOWER){
             motorLow.set(ControlMode.PercentOutput, speed);
@@ -56,7 +61,7 @@ public class ShooterSubsystem extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new SpinPaired(Robot.oi.joystick2, Robot.oi.joystick3));
+        setDefaultCommand(new SpinPaired(Robot.oi.getLeftTrigger(), Robot.oi.getRightTrigger()));
     }
 
     public enum Stage {

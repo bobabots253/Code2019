@@ -17,10 +17,10 @@ public class Drivetrain extends Subsystem {
 
     // Declarations are using IMotorController, the superclass to TalonSRX and
     // VictorSPX
-    public static TalonSRX leftMotorA = new TalonSRX(1), leftMotorB = new TalonSRX(2), rightMotorA = new TalonSRX(3),
-            rightMotorB = new TalonSRX(4);
+    public static TalonSRX leftMotorA = new TalonSRX(Constants.leftMotorA), leftMotorB = new TalonSRX(Constants.leftMotorB), 
+    rightMotorA = new TalonSRX(Constants.rightMotorA), rightMotorB = new TalonSRX(Constants.rightMotorB);
 
-    private static VictorSPX leftMotorC = new VictorSPX(1), rightMotorC = new VictorSPX(2);
+    private static VictorSPX leftMotorC = new VictorSPX(Constants.leftMotorC), rightMotorC = new VictorSPX(Constants.rightMotorC);
 
     private static IMotorController[] motors = { leftMotorA, leftMotorB, leftMotorC, rightMotorA, rightMotorB,
             rightMotorC };
@@ -60,10 +60,10 @@ public class Drivetrain extends Subsystem {
             if (motor instanceof TalonSRX) {
                 TalonSRX talon = (TalonSRX) motor;
 
-                talon.configPeakCurrentLimit(30);
+                talon.configPeakCurrentLimit(60);
                 talon.configPeakCurrentDuration(500);
-                talon.configContinuousCurrentLimit(35);
-                talon.enableCurrentLimit(false);
+                talon.configContinuousCurrentLimit(40);
+                talon.enableCurrentLimit(true);
             }
 
             motor.configVoltageCompSaturation(12, 10);

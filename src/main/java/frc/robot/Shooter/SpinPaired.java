@@ -28,7 +28,13 @@ public class SpinPaired extends Command {
     }
 
     protected void execute() {
-        ShooterSubsystem.spin(lspeed, hspeed);
+        if(Robot.oi.getRightTrigger() > 0.1 && Robot.oi.getLeftTrigger() < 0.1){
+            ShooterSubsystem.spin((Robot.oi.getRightTrigger())/1.5);
+        } else if(Robot.oi.getLeftTrigger() > 0.1 && Robot.oi.getRightTrigger() < 0.1){
+        ShooterSubsystem.spin(-Robot.oi.getLeftTrigger()/3);
+        }else if(Robot.oi.getLeftTrigger() < 0.1 && Robot.oi.getRightTrigger() < 0.1){
+            ShooterSubsystem.spin(0);
+        }
     }
 
     @Override

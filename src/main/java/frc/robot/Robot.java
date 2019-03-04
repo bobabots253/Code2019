@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -27,6 +28,7 @@ import frc.robot.Shooter.ShooterSubsystem;
  */
 public class Robot extends TimedRobot {
   Compressor compressor = new Compressor(Constants.kPCM_ID);
+  Spark LEDSpark = new Spark(1);
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
@@ -83,9 +85,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    hatch.retain(); //Drivers are stupider than you think
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
+    LEDSpark.set(-0.79);
   }
 
   /**
@@ -110,6 +114,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    LEDSpark.set(-0.81);
   }
 
   public void teleopInit() {
