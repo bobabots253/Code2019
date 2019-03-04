@@ -6,10 +6,15 @@ Destination Deep Space Code for Boba Bots 253
 
 Branches Info:
 
-**master** : Contains master code for the competition robot...currently WIP
+**master** : Contains master code for the competition robot...currently not updated.
 
 **practicebot** : Contains code for the various mechanisms. Finalized mechanism code is to be moved to the master branch.
 
+**ledtest**: Contains code for the REV Blinkin Driver.
+
+**test**: Contains previous code for the POV.
+
+**sabienstuff**: ihni tbh
 **Notes**
 1. When declaring compresor, use port 1
 2. Initalize OI subsystem instance **AFTER** all other subsystems or else your code will not start
