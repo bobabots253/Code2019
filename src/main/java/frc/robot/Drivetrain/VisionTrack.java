@@ -4,7 +4,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Misc.Constants;
-import frc.robot.Misc.OI.LED_STATE;
+import frc.robot.Misc.OI.CamMode;
+import frc.robot.Misc.OI.LEDMode;
 
 public class VisionTrack extends Command {
 
@@ -28,8 +29,14 @@ public class VisionTrack extends Command {
 
     }
 
+    @Override
+    protected void initialize(){
+        Robot.oi.setLEDMode(LEDMode.ON);
+        Robot.oi.setCamMode(CamMode.VISION);
+    }
+
+    @Override
     protected void execute() {
-        Robot.oi.setLED(LED_STATE.ON);
 
         double turn = Robot.oi.getTurnValue();
         double throttle = Robot.oi.getThrottleValue();
@@ -76,8 +83,15 @@ public class VisionTrack extends Command {
         return false;
     }
 
+    @Override
+    protected void interrupted(){
+        end();
+    }
+
     protected void end() {
         Drivetrain.drive(0, 0);
+        Robot.oi.setLEDMode(LEDMode.OFF);
+        Robot.oi.setCamMode(CamMode.DRIVER);
     }
 
 }

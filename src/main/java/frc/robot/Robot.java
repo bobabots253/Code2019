@@ -17,7 +17,7 @@ import frc.robot.Drivetrain.Drivetrain;
 import frc.robot.Hatch.HatchSubsystem;
 import frc.robot.Misc.Constants;
 import frc.robot.Misc.OI;
-import frc.robot.Misc.OI.LED_STATE;
+import frc.robot.Misc.OI.LEDMode;
 import frc.robot.Shooter.ShooterSubsystem;
 
 /**
@@ -55,6 +55,8 @@ public class Robot extends TimedRobot {
     hatch = HatchSubsystem.getInstance();
     oi = OI.getInstance();
 
+    oi.setLEDMode(LEDMode.OFF);
+
   }
 
   /**
@@ -90,7 +92,6 @@ public class Robot extends TimedRobot {
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
-    LEDSpark.set(-0.79);
   }
 
   /**
@@ -115,12 +116,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    LEDSpark.set(-0.81);
   }
 
   public void teleopInit() {
     compressor.stop();
-    Robot.oi.setLED(LED_STATE.OFF);
     Drivetrain.setBrakeMode();
 
     // Returns all pistons to default positions when robot is first enabled
@@ -131,7 +130,7 @@ public class Robot extends TimedRobot {
   
   @Override
   public void disabledInit(){ 
-    Robot.oi.setLED(LED_STATE.OFF);
+    Robot.oi.setLEDMode(LEDMode.OFF);
     
 
   }

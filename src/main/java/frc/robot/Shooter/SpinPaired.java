@@ -61,13 +61,7 @@ public class SpinPaired extends Command {
     }
 
     private enum InputType {
-        SINGLE_JOYSTICK(0), DOUBLE_JOYSTICK(1), SPEED(2);
-
-        public final int value;
-
-        private InputType(int value){
-            this.value = value;
-        }
+        SINGLE_JOYSTICK, DOUBLE_JOYSTICK, SPEED;
     }
 
 }

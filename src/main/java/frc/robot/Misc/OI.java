@@ -56,7 +56,6 @@ public class OI {
     private JoystickButton triggerLeft;
     private JoystickButton triggerRight;
 
-    private final String mTableName;
     private NetworkTable limelight;
     private double last_valid_x_offset = 0;
     private AHRS navX = new AHRS(SPI.Port.kMXP, (byte)200);
@@ -70,7 +69,6 @@ public class OI {
     }
 
     public OI() {
-        mTableName = "limelight";
         xboxcontroller = new XboxController(0);
 
         ButtonA = new JoystickButton(xboxcontroller, 1);
@@ -160,56 +158,57 @@ public class OI {
     }
 
     /*
-     * Methods for getting limelight values
+     * Methods for setting limelight values
      */
-    public static enum LED_STATE{
-        ON, OFF, BLINK, MANUAL;
-    }
+    public static enum LEDMode{
+        PIPELINE(0), OFF(1), BLINK(2), ON(3);
 
-    public static enum CAM_MODE{
-        VISION, DRIVER;
-    }
+        public int val;
 
-    public void setLED(LED_STATE state){
-        switch(state){
-            case MANUAL:
-                set("ledMode", 0);
-                break;
-            case ON:
-                set("ledMode", 3);
-                break;
-            case OFF:
-                set("ledMode", 1);
-                break;
-            case BLINK:
-                set("ledMode", 2);
-                break;
+        private LEDMode(int val){
+            this.val = val;
         }
     }
 
-    public Command setLEDCommand(LED_STATE state){
-        return new Command(){
+    public static enum CamMode{
+        VISION(0), DRIVER(1);
+
+        public int val;
+
+        private CamMode(int val){
+            this.val = val;
+        }
+    }
+
+    public static enum StreamMode{
+        SIDE_BY_SIDE(0), PIP_MAIN(1), PIP_SECONDARY(2);
+
+        public int val;
         
-            @Override
-            protected boolean isFinished() {
-                setLED(state);
-                return true;
-            }
-        };
-    }
-
-    public void setCamMode(CAM_MODE mode){
-        switch (mode){
-            case VISION:
-                set("camMode", 0);
-                break;
-            case DRIVER:
-                set("camMode", 1);
-                break;
+        private StreamMode(int val){
+            this.val = val;
         }
     }
 
-    
+    public void setLastValidXOffset(double val) {
+        last_valid_x_offset = val;
+    }
+
+    public void setLEDMode(LEDMode ledMode){
+        limelight.getEntry("ledMode").setNumber(ledMode.val);
+    }
+
+    public void setCamMode(CamMode camMode){
+        limelight.getEntry("camMode").setNumber(camMode.val);
+    }
+
+    public void setStreamMode(StreamMode stream){
+        limelight.getEntry("stream").setNumber(stream.val);
+    }
+
+    /*
+     * Methods for getting limelight values 
+     */
 
     public double getxOffset() {
         SmartDashboard.putNumber("xoffset", -limelight.getEntry("tx").getDouble(0.0));
@@ -220,24 +219,13 @@ public class OI {
         return last_valid_x_offset;
     }
 
-    public void setLastValidXOffset(double val) {
-        last_valid_x_offset = val;
-    }
-
     public double getyOffset() {
         return -limelight.getEntry("ty").getDouble(0.0);
     }
 
-    public void changeLEDMode(int val) {
-        limelight.getEntry("ledMode").setNumber(val);
-    }
 
     public boolean getTargetValid() {
         return limelight.getEntry("tv").getDouble(0) == 1;
-    }
-
-    private void set(String varName, double value){
-        NetworkTableInstance.getDefault().getTable(mTableName).getEntry(varName).setNumber(value);
     }
 
     /*
