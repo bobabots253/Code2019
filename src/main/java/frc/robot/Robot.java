@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -115,10 +116,29 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    boolean retainingHatch;
+    boolean ejectionStatus;
+    if(HatchSubsystem.retainer.get() == Value.kForward) {
+      retainingHatch = true;
+   } else {
+   retainingHatch = false;
+   }
+
+   if(HatchSubsystem.eject.get() == Value.kForward) {
+    ejectionStatus = true;
+   } else {
+    ejectionStatus = false;
+  } 
+
+    SmartDashboard.putBoolean("RetainerUp?", retainingHatch);
+    SmartDashboard.putBoolean("Ejecting Hatch? ", ejectionStatus);
+    
     Scheduler.getInstance().run();
+    
   }
 
   public void teleopInit() {
+    shooter.resetEncoders();
     compressor.stop();
     Drivetrain.setBrakeMode();
   

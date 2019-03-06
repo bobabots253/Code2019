@@ -41,6 +41,7 @@ public class HatchSubsystem extends Subsystem {
     }
 
     /* Retaining clamp methods */
+   
     public void retain() {
         retainer.set(Value.kReverse);
     }

@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class ShooterSubsystem extends Subsystem {
@@ -50,6 +51,7 @@ public class ShooterSubsystem extends Subsystem {
     public static void spin(double lvolt, double hvolt) {
         motorLow.set(ControlMode.PercentOutput, lvolt);
         motorHigh.set(ControlMode.PercentOutput, hvolt);
+ 
     }
 
     public static void spin(double input){
@@ -68,6 +70,13 @@ public class ShooterSubsystem extends Subsystem {
     public static void spinVelocity(double lvelo, double hvelo) {
         motorLow.set(ControlMode.Velocity, lvelo);
         motorHigh.set(ControlMode.Velocity, hvelo);
+        SmartDashboard.putNumber("Encoder Lower Stage", motorLow.getSelectedSensorPosition(0));
+        SmartDashboard.putNumber("Encoder Upper Stage", motorHigh.getSelectedSensorPosition(0));
+    }
+
+    public void resetEncoders(){
+        motorLow.setSelectedSensorPosition(0,0,10);
+        motorHigh.setSelectedSensorPosition(0,0,10);
     }
 
     @Override
