@@ -121,6 +121,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     compressor.stop();
     Drivetrain.setBrakeMode();
+  
 
     // Returns all pistons to default positions when robot is first enabled
     hatch.release();

@@ -22,6 +22,16 @@ public class ShooterSubsystem extends Subsystem {
 
     private ShooterSubsystem() {
 
+        motorLow.configPeakCurrentLimit(60);
+        motorLow.configPeakCurrentDuration(500);
+        motorLow.configContinuousCurrentLimit(40);
+        motorLow.enableCurrentLimit(true);
+
+        motorHigh.configPeakCurrentLimit(60);
+        motorHigh.configPeakCurrentDuration(500);
+        motorHigh.configContinuousCurrentLimit(40);
+        motorHigh.enableCurrentLimit(true);        
+
         motorLow.configVoltageCompSaturation(12);
         motorLow.enableVoltageCompensation(true);
 
