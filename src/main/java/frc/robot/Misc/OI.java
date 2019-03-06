@@ -24,8 +24,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Drivetrain.GyroDrive;
 import frc.robot.Drivetrain.VisionTrack;
-import frc.robot.Shooter.ShooterSubsystem.Stage;
-import frc.robot.Shooter.SpinIndiv;
+import frc.robot.Shooter.ShooterSubsystem;
+import frc.robot.Shooter.SpinVelocity;
 
 public class OI {
 
@@ -98,11 +98,14 @@ public class OI {
         limelight = NetworkTableInstance.getDefault().getTable("limelight");
 
         if (Robot.shooter != null) {
-            ButtonA.whenPressed(new SpinIndiv(1, Stage.LOWER));
+            /*ButtonA.whenPressed(new SpinIndiv(1, Stage.LOWER));
             ButtonA.whenReleased(new SpinIndiv(0, Stage.LOWER));
 
             ButtonX.whenPressed(new SpinIndiv(1, Stage.HIGHER));
-            ButtonX.whenReleased(new SpinIndiv(0, Stage.HIGHER));
+            ButtonX.whenReleased(new SpinIndiv(0, Stage.HIGHER));*/
+
+            ButtonA.whenPressed(new SpinVelocity(500, 500));
+            ButtonA.whenReleased(new RunCommand( () -> ShooterSubsystem.spin(0,0)));
         }
 
         if (Robot.hatch != null) {

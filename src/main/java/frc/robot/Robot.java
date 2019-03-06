@@ -119,6 +119,7 @@ public class Robot extends TimedRobot {
   }
 
   public void teleopInit() {
+    compressor.stop();
     Robot.oi.setLED(LED_STATE.OFF);
     Drivetrain.setBrakeMode();
 

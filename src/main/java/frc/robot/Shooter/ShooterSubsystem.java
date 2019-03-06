@@ -31,8 +31,11 @@ public class ShooterSubsystem extends Subsystem {
         motorHigh.enableVoltageCompensation(true);
 
         // Lower shooter axle encoder settings
-        motorLow.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+        motorLow.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
         motorLow.setSensorPhase(true);
+
+        motorHigh.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+        motorHigh.setSensorPhase(false);
 
     }
 
