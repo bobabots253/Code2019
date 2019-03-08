@@ -57,6 +57,8 @@ public class Robot extends TimedRobot {
     hatch = HatchSubsystem.getInstance();
     oi = OI.getInstance();
 
+    Robot.oi.setLEDMode(LEDMode.OFF);
+
   }
 
   /**
