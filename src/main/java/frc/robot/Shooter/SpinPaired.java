@@ -3,6 +3,8 @@ package frc.robot.Shooter;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.Misc.Constants;
+import frc.robot.Misc.OI;
 
 public class SpinPaired extends Command {
 
@@ -34,6 +36,7 @@ public class SpinPaired extends Command {
 
         this.stick = stick;
     }
+    
 
     protected void execute() {
         switch(input){
@@ -41,7 +44,7 @@ public class SpinPaired extends Command {
                 ShooterSubsystem.spin(this.lspeed, this.hspeed);
                 break;
             case SINGLE_JOYSTICK:
-                ShooterSubsystem.spin(this.stick.getY(), -this.stick.getY());
+                ShooterSubsystem.spin(OI.deadbandX(this.stick.getY(), Constants.kJoystickDeadband), OI.deadbandX(-this.stick.getY(), Constants.kJoystickDeadband));
                 break;
             case DOUBLE_JOYSTICK:
                 ShooterSubsystem.spin(this.leftStick.getY(), this.rightStick.getY());

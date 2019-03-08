@@ -12,8 +12,8 @@ public class VisionTrack extends Command {
     private double left, right;
 
     private double aim_kP = Constants.kP_AimVision;
-    private double aim_kI = Constants.kP_AimVision;
-    private double aim_kD = Constants.kP_AimVision;
+    private double aim_kI = Constants.kI_AimVision;
+    private double aim_kD = Constants.kD_AimVision;
 
     private double dist_kP = Constants.kP_DistVision;
     private double dist_kI = Constants.kI_DistVision;
@@ -32,7 +32,9 @@ public class VisionTrack extends Command {
     @Override
     protected void initialize(){
         Robot.oi.setLEDMode(LEDMode.ON);
+        Robot.oi.setPipeline(1);
         Robot.oi.setCamMode(CamMode.VISION);
+        
     }
 
     @Override
@@ -90,8 +92,11 @@ public class VisionTrack extends Command {
 
     protected void end() {
         Drivetrain.drive(0, 0);
+
         Robot.oi.setLEDMode(LEDMode.OFF);
+        Robot.oi.setPipeline(0);
         Robot.oi.setCamMode(CamMode.DRIVER);
+        
     }
 
 }

@@ -81,7 +81,7 @@ public class ShooterSubsystem extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new SpinPaired(Robot.oi.getLeftTrigger(), Robot.oi.getRightTrigger()));
+        setDefaultCommand(new SpinPaired(Robot.oi.joystick2));
     }
 
     public enum Stage {

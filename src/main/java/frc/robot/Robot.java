@@ -18,6 +18,7 @@ import frc.robot.Drivetrain.Drivetrain;
 import frc.robot.Hatch.HatchSubsystem;
 import frc.robot.Misc.Constants;
 import frc.robot.Misc.OI;
+import frc.robot.Misc.OI.CamMode;
 import frc.robot.Misc.OI.LEDMode;
 import frc.robot.Shooter.ShooterSubsystem;
 
@@ -55,8 +56,6 @@ public class Robot extends TimedRobot {
     shooter = ShooterSubsystem.getInstance();
     hatch = HatchSubsystem.getInstance();
     oi = OI.getInstance();
-
-    oi.setLEDMode(LEDMode.OFF);
 
   }
 
@@ -142,7 +141,6 @@ public class Robot extends TimedRobot {
     compressor.stop();
     Drivetrain.setBrakeMode();
   
-
     // Returns all pistons to default positions when robot is first enabled
     hatch.release();
     hatch.retract();
@@ -151,7 +149,11 @@ public class Robot extends TimedRobot {
   
   @Override
   public void disabledInit(){ 
+      
     Robot.oi.setLEDMode(LEDMode.OFF);
+    Robot.oi.setPipeline(1);
+    Robot.oi.setCamMode(CamMode.DRIVER);
+    
     
 
   }

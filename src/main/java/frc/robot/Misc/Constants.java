@@ -24,7 +24,7 @@ public class Constants {
     public static final double kTurnScaleGyro = 20; // Sets maximum turn rate (in degrees) when using angular velocity control
 
     // Vision PID gains
-    public static final double kP_AimVision = 0.1;//0.1 is a shit #
+    public static final double kP_AimVision = 0.0;//0.1 is a shit #
     public static final double kI_AimVision = 0;
     public static final double kD_AimVision = 0;
 

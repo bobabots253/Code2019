@@ -19,13 +19,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Drivetrain.GyroDrive;
 import frc.robot.Drivetrain.VisionTrack;
 import frc.robot.Shooter.ShooterSubsystem;
-import frc.robot.Shooter.SpinVelocity;
+import frc.robot.Shooter.SpinPaired;
 
 public class OI {
 
@@ -71,6 +70,7 @@ public class OI {
     public OI() {
         xboxcontroller = new XboxController(0);
 
+
         ButtonA = new JoystickButton(xboxcontroller, 1);
         ButtonB = new JoystickButton(xboxcontroller, 2);
         ButtonX = new JoystickButton(xboxcontroller, 3);
@@ -102,8 +102,8 @@ public class OI {
             ButtonX.whenPressed(new SpinIndiv(1, Stage.HIGHER));
             ButtonX.whenReleased(new SpinIndiv(0, Stage.HIGHER));*/
 
-            ButtonA.whenPressed(new SpinVelocity(500, 500));
-            ButtonA.whenReleased(new RunCommand( () -> ShooterSubsystem.spin(0,0)));
+            //ButtonA.whenPressed(new SpinPaired(joystick2));
+            ButtonA.whenReleased(new RunCommand( () -> ShooterSubsystem.spin(0, 0)));
         }
 
         if (Robot.hatch != null) {
@@ -204,6 +204,10 @@ public class OI {
 
     public void setStreamMode(StreamMode stream){
         limelight.getEntry("stream").setNumber(stream.val);
+    }
+
+    public void setPipeline(int val){
+        limelight.getEntry("pipeline").setNumber(val);
     }
 
     /*
