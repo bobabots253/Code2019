@@ -15,7 +15,7 @@ public class Constants {
     public static final double kTurnInPlaceSens = 1; // Maximum turn-in-place rate (in percent of max) to allow robot to turn to, b/t 0 and 1
 
     /* PID Loops */
-    public static final double kF = 0.05; // Minimum value (in percent max speed) to move the robot, b/t 0 and 1
+    public static final double kF = 0.88/12; // Minimum value (in percent max speed) to move the robot, b/t 0 and 1
 
     // Angular velocity PID gains
     public static final double kP_Gyro = 0;
@@ -24,7 +24,7 @@ public class Constants {
     public static final double kTurnScaleGyro = 20; // Sets maximum turn rate (in degrees) when using angular velocity control
 
     // Vision PID gains
-    public static final double kP_AimVision = 0.0;//0.1 is a shit #
+    public static final double kP_AimVision = 0.01;//0.1 is a shit #
     public static final double kI_AimVision = 0;
     public static final double kD_AimVision = 0;
 
