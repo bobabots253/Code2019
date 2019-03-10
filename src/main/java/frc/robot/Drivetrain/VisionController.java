@@ -1,5 +1,7 @@
 package frc.robot.Drivetrain;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class VisionController {
 
     private double kP, kI, kD, dt;
@@ -11,10 +13,17 @@ public class VisionController {
         this.kI = kI;
         this.kD = kD;
         this.dt = dt;
+        
     }
 
     public void configure(double initial_error) {
         this.last_error = initial_error;
+    }
+
+    public void updatePID(double kP, double kI, double kD){
+        this.kP = kP;
+        this.kI = kI;
+        this.kD = kD;
     }
 
     public double calculate(double error) {

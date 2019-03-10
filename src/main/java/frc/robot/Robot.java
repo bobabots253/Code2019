@@ -142,7 +142,7 @@ public class Robot extends TimedRobot {
 
     public void teleopInit() {
         shooter.resetEncoders();
-        compressor.stop();
+        //compressor.stop();
         Drivetrain.setBrakeMode();
 
         // Returns all pistons to default positions when robot is first enabled

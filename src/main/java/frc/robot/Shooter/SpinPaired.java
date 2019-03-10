@@ -44,7 +44,14 @@ public class SpinPaired extends Command {
                 ShooterSubsystem.spin(this.lspeed, this.hspeed);
                 break;
             case SINGLE_JOYSTICK:
-                ShooterSubsystem.spin(OI.deadbandX(this.stick.getY(), Constants.kJoystickDeadband), OI.deadbandX(-this.stick.getY(), Constants.kJoystickDeadband));
+                double lowSpeed = OI.deadbandX(this.stick.getY(), Constants.kJoystickDeadband);
+                lowSpeed = OI.deadbandY(lowSpeed, 0.25);
+
+                double highSpeed = OI.deadbandX(-this.stick.getY(), Constants.kJoystickDeadband);
+                highSpeed = OI.deadbandY(highSpeed, 0.25);
+
+
+                ShooterSubsystem.spin(OI.exponentiate(lowSpeed, 3.0), OI.exponentiate(highSpeed, 3.0));
                 break;
             case DOUBLE_JOYSTICK:
                 ShooterSubsystem.spin(this.leftStick.getY(), this.rightStick.getY());

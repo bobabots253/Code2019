@@ -32,6 +32,8 @@ public class OI {
     public Joystick joystick3 = new Joystick(3);
 
     private XboxController xboxcontroller;
+    private JoystickButton Joystick2_3 = new JoystickButton(joystick2, 3);
+    private JoystickButton Joystick2_2 = new JoystickButton(joystick2, 2);
 
     private JoystickButton ButtonA;
     private JoystickButton ButtonB;
@@ -103,6 +105,10 @@ public class OI {
             ButtonX.whenReleased(new SpinIndiv(0, Stage.HIGHER));*/
 
             //ButtonA.whenPressed(new SpinPaired(joystick2));
+            Joystick2_3.whenPressed(new SpinPaired(0.4, -0.4));
+            Joystick2_3.whenReleased(new SpinPaired(0,0));
+            Joystick2_2.whenPressed(new SpinPaired(-0.4, 0.4));
+            Joystick2_2.whenReleased(new SpinPaired(0,0));
             ButtonA.whenReleased(new RunCommand( () -> ShooterSubsystem.spin(0, 0)));
         }
 
@@ -113,7 +119,7 @@ public class OI {
 
         if (Robot.drivetrain != null) {
             ButtonRB.whileHeld(new GyroDrive());
-            ButtonLB.whileHeld(new VisionTrack());
+            triggerRight.whileHeld(new VisionTrack());
         }
 
     }

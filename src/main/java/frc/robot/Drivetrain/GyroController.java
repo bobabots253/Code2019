@@ -11,6 +11,7 @@ public class GyroController {
         this.kI = kI;
         this.kD = kD;
         this.dt = dt;
+
     }
 
     public void configure(double initial_error) {
@@ -18,6 +19,8 @@ public class GyroController {
     }
 
     public double calculate(double error) {
+
+        
 
         double ret;
         total_error += error;

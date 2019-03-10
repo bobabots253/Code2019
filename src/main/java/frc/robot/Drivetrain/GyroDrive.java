@@ -21,6 +21,7 @@ public class GyroDrive extends Command {
     }
 
     protected void execute() {
+
         // Getting desired speeds
         double throttle = Robot.oi.getThrottleValue();
         double turn = Robot.oi.getTurnValue() * Constants.kTurnScaleGyro;

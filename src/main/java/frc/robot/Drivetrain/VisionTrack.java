@@ -27,6 +27,10 @@ public class VisionTrack extends Command {
     public VisionTrack() {
         requires(Robot.drivetrain);
 
+        SmartDashboard.putNumber("kPAim", aim_kP);
+        SmartDashboard.putNumber("kIAim", aim_kI);
+        SmartDashboard.putNumber("kDAim", aim_kD);
+
     }
 
     @Override
@@ -42,6 +46,8 @@ public class VisionTrack extends Command {
 
         double turn = Robot.oi.getTurnValue();
         double throttle = Robot.oi.getThrottleValue();
+
+        SmartDashboard.putNumber("throttle", throttle);
 
         double heading_error;
         double distance_error;
@@ -62,17 +68,32 @@ public class VisionTrack extends Command {
 
         }
 
+        if(Math.abs(heading_error) < 1){
+            heading_error = 0;
+        }
+
         SmartDashboard.putNumber("distance_err", distance_error);
         SmartDashboard.putNumber("heading_error", heading_error);
+
+        double kP = SmartDashboard.getNumber("kPAim", Constants.kP_AimVision);
+        double kI = SmartDashboard.getNumber("kIAim", Constants.kI_AimVision);
+        double kD = SmartDashboard.getNumber("kDAim", Constants.kD_AimVision);
+
+        aim.updatePID(kP, kI, kD);
 
         double steering_adjust = aim.calculate(heading_error);
         double distance_adjust = distance.calculate(distance_error);
 
-        left = distance_adjust - steering_adjust;
-        right = distance_adjust + steering_adjust;
+        if(Math.abs(throttle) > 0.01){
+            left = distance_adjust - steering_adjust;
+            right = distance_adjust + steering_adjust;
 
-        left += left > 0 ? kF : -kF;
-        right += right > 0 ? kF : -kF;
+            left += left > 0 ? kF : -kF;
+            right += right > 0 ? kF : -kF;
+        } else {
+            left = 0;
+            right = 0;
+        }
 
         Drivetrain.drive(throttle + left + turn, throttle + right - turn);
 
