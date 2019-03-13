@@ -59,9 +59,9 @@ public class Drivetrain extends Subsystem {
             if (motor instanceof TalonSRX) {
                 TalonSRX talon = (TalonSRX) motor;
 
-                talon.configPeakCurrentLimit(60);
+                talon.configPeakCurrentLimit(30);
                 talon.configPeakCurrentDuration(500);
-                talon.configContinuousCurrentLimit(40);
+                talon.configContinuousCurrentLimit(20);
                 talon.enableCurrentLimit(true);
             }
 
@@ -70,6 +70,8 @@ public class Drivetrain extends Subsystem {
 
         }
 
+        leftMotorA.configClosedloopRamp(0.25);
+        rightMotorA.configClosedloopRamp(0.25);
         // Left drivetrain encoder
         // leftMotorA.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1,
         // 10);
@@ -102,14 +104,22 @@ public class Drivetrain extends Subsystem {
     public static void setBrakeMode() {
 
         leftMotorA.setNeutralMode(NeutralMode.Brake);
+        leftMotorB.setNeutralMode(NeutralMode.Brake);
+        leftMotorC.setNeutralMode(NeutralMode.Brake);
         rightMotorA.setNeutralMode(NeutralMode.Brake);
+        rightMotorB.setNeutralMode(NeutralMode.Brake);
+        rightMotorC.setNeutralMode(NeutralMode.Brake);
 
     }
 
     public static void setCoastMode() {
 
         leftMotorA.setNeutralMode(NeutralMode.Coast);
+        leftMotorB.setNeutralMode(NeutralMode.Coast);
+        leftMotorC.setNeutralMode(NeutralMode.Coast);
         rightMotorA.setNeutralMode(NeutralMode.Coast);
+        rightMotorB.setNeutralMode(NeutralMode.Coast);
+        rightMotorC.setNeutralMode(NeutralMode.Coast);
 
     }
 }

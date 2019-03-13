@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.Misc.Constants;
 import frc.robot.Misc.OI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive extends Command {
 
@@ -25,6 +26,9 @@ public class Drive extends Command {
             double throttle = Robot.oi.getThrottleValue();
             double turn = Robot.oi.getTurnValue();
 
+            SmartDashboard.putNumber("throttle", throttle);
+            SmartDashboard.putNumber("turn", turn);
+
             if (throttle != 0) {
                 left = throttle + throttle * turn * Constants.kTurnSens;
                 right = throttle - throttle * turn * Constants.kTurnSens;
@@ -41,6 +45,9 @@ public class Drive extends Command {
                 right = OI.exponentiate(right, Constants.kTurnInPlaceExpScale);
 
             }
+
+            SmartDashboard.putNumber("left", left);
+            SmartDashboard.putNumber("right", right);
 
             Drivetrain.drive(left, right);
         } else {

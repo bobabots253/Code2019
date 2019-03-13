@@ -49,8 +49,8 @@ public class Constants {
     public static final int kEjectForward = 3; // Number between 0 and 7
     public static final int kEjectReverse = 1; // Number between 0 and 7
 
-    public static final int kRetainerForward = 4; // Number between 0 and 7
-    public static final int kRetainerReverse = 7; // Number between 0 and 7
+    public static final int kRetainerForward = 7; // Number between 0 and 7
+    public static final int kRetainerReverse = 4; // Number between 0 and 7
 
 
 }
