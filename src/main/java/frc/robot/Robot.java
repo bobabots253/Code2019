@@ -8,9 +8,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,7 +19,6 @@ import frc.robot.Drivetrain.Drivetrain;
 import frc.robot.Hatch.HatchSubsystem;
 import frc.robot.Misc.Constants;
 import frc.robot.Misc.OI;
-import frc.robot.Misc.OI.CamMode;
 import frc.robot.Misc.OI.LEDMode;
 import frc.robot.Shooter.ShooterSubsystem;
 
@@ -30,6 +30,7 @@ import frc.robot.Shooter.ShooterSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
+    PowerDistributionPanel pdp = new PowerDistributionPanel();
     Compressor compressor = new Compressor(Constants.kPCM_ID);
     Spark LEDSpark = new Spark(1);
     private static final String kDefaultAuto = "Default";
@@ -103,6 +104,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
+        Scheduler.getInstance().run();
         switch (m_autoSelected) {
         case kCustomAuto:
             // Put custom auto code here
@@ -119,6 +121,12 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        SmartDashboard.putNumber("PDP Temperature", pdp.getTemperature());
+        SmartDashboard.putNumber("PDP Current", pdp.getTotalCurrent());
+        SmartDashboard.putNumber("PDP Energy", pdp.getTotalEnergy());
+        SmartDashboard.putNumber("PDP Power", pdp.getTotalPower());
+        SmartDashboard.putNumber("PDP Voltage", pdp.getVoltage());
+     
         boolean retainingHatch;
         boolean ejectionStatus;
         if (HatchSubsystem.retainer.get() == Value.kForward) {

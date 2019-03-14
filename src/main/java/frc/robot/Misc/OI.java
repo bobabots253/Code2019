@@ -34,6 +34,7 @@ public class OI {
     private XboxController xboxcontroller;
     private JoystickButton Joystick2_3 = new JoystickButton(joystick2, 3);
     private JoystickButton Joystick2_2 = new JoystickButton(joystick2, 2);
+    private JoystickButton Joystick2_1 = new JoystickButton(joystick2, 1);
 
     private JoystickButton ButtonA;
     private JoystickButton ButtonB;
@@ -105,10 +106,12 @@ public class OI {
             ButtonX.whenReleased(new SpinIndiv(0, Stage.HIGHER));*/
 
             //ButtonA.whenPressed(new SpinPaired(joystick2));
-            Joystick2_3.whenPressed(new SpinPaired(0.4, -0.4));
+            Joystick2_3.whenPressed(new SpinPaired(0.52, -0.52));
             Joystick2_3.whenReleased(new SpinPaired(0,0));
-            Joystick2_2.whenPressed(new SpinPaired(-0.4, 0.4));
+            Joystick2_2.whenPressed(new SpinPaired(-0.52, 0.52));
             Joystick2_2.whenReleased(new SpinPaired(0,0));
+            Joystick2_1.whenPressed(new SpinPaired(joystick2));
+            Joystick2_1.whenReleased(new SpinPaired(0,0));
             ButtonA.whenReleased(new RunCommand( () -> ShooterSubsystem.spin(0, 0)));
         }
 
