@@ -75,14 +75,14 @@ public class Drivetrain extends Subsystem {
         // Left drivetrain encoder
         // leftMotorA.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1,
         // 10);
-        leftMotorA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-        leftMotorA.setSensorPhase(false);
+      //  leftMotorA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+       // leftMotorA.setSensorPhase(false);
 
         // Right drivetrain encoder
         // rightMotorA.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1,
         // 10);
-        rightMotorA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-        rightMotorA.setSensorPhase(false);
+      //  rightMotorA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+       // rightMotorA.setSensorPhase(false);
 
     }
 
@@ -96,10 +96,10 @@ public class Drivetrain extends Subsystem {
         rightMotorA.set(ControlMode.Velocity, 400);
     }
 
-    public static void resetEncoders() {
+  /*  public static void resetEncoders() {
         rightMotorA.setSelectedSensorPosition(0);
         leftMotorA.setSelectedSensorPosition(0);
-    }
+    }*/
 
     public static void setBrakeMode() {
 

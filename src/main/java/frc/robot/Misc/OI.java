@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Drivetrain.GyroDrive;
 import frc.robot.Drivetrain.VisionTrack;
+import frc.robot.Hatch.compressStop;
 import frc.robot.Shooter.ShooterSubsystem;
 import frc.robot.Shooter.SpinPaired;
 
@@ -35,6 +36,7 @@ public class OI {
     private JoystickButton Joystick2_3 = new JoystickButton(joystick2, 3);
     private JoystickButton Joystick2_2 = new JoystickButton(joystick2, 2);
     private JoystickButton Joystick2_1 = new JoystickButton(joystick2, 1);
+    private JoystickButton Joystick2_10 = new JoystickButton(joystick2, 10);
 
     private JoystickButton ButtonA;
     private JoystickButton ButtonB;
@@ -72,6 +74,7 @@ public class OI {
 
     public OI() {
         xboxcontroller = new XboxController(0);
+       // SmartDashboard.putData("Stop Compressor", new compressStop());
 
 
         ButtonA = new JoystickButton(xboxcontroller, 1);
@@ -97,6 +100,7 @@ public class OI {
         triggerRight = new TriggerButton(xboxcontroller, Hand.kRight);
 
         limelight = NetworkTableInstance.getDefault().getTable("limelight");
+        Joystick2_10.whenPressed(new compressStop());
 
         if (Robot.shooter != null) {
             /*ButtonA.whenPressed(new SpinIndiv(1, Stage.LOWER));
@@ -106,12 +110,13 @@ public class OI {
             ButtonX.whenReleased(new SpinIndiv(0, Stage.HIGHER));*/
 
             //ButtonA.whenPressed(new SpinPaired(joystick2));
-            Joystick2_3.whenPressed(new SpinPaired(0.52, -0.52));
+            Joystick2_3.whenPressed(new SpinPaired(0.56, -0.56));
             Joystick2_3.whenReleased(new SpinPaired(0,0));
-            Joystick2_2.whenPressed(new SpinPaired(-0.52, 0.52));
+            Joystick2_2.whenPressed(new SpinPaired(-0.56, 0.56));
             Joystick2_2.whenReleased(new SpinPaired(0,0));
             Joystick2_1.whenPressed(new SpinPaired(joystick2));
             Joystick2_1.whenReleased(new SpinPaired(0,0));
+
             ButtonA.whenReleased(new RunCommand( () -> ShooterSubsystem.spin(0, 0)));
         }
 

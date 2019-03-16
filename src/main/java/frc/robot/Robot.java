@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Spark;
@@ -17,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Drivetrain.Drivetrain;
 import frc.robot.Hatch.HatchSubsystem;
-import frc.robot.Misc.Constants;
+import frc.robot.Hatch.compressStop;
 import frc.robot.Misc.OI;
 import frc.robot.Misc.OI.LEDMode;
 import frc.robot.Shooter.ShooterSubsystem;
@@ -31,7 +30,7 @@ import frc.robot.Shooter.ShooterSubsystem;
  */
 public class Robot extends TimedRobot {
     PowerDistributionPanel pdp = new PowerDistributionPanel();
-    Compressor compressor = new Compressor(Constants.kPCM_ID);
+  //  Compressor compressor = new Compressor(Constants.kPCM_ID);
     Spark LEDSpark = new Spark(1);
     private static final String kDefaultAuto = "Default";
     private static final String kCustomAuto = "My Auto";
@@ -104,6 +103,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
+        hatch.retain();
         Scheduler.getInstance().run();
         switch (m_autoSelected) {
         case kCustomAuto:
@@ -126,6 +126,9 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("PDP Energy", pdp.getTotalEnergy());
         SmartDashboard.putNumber("PDP Power", pdp.getTotalPower());
         SmartDashboard.putNumber("PDP Voltage", pdp.getVoltage());
+
+
+        
      
         boolean retainingHatch;
         boolean ejectionStatus;
@@ -154,8 +157,8 @@ public class Robot extends TimedRobot {
         Drivetrain.setBrakeMode();
 
         // Returns all pistons to default positions when robot is first enabled
-        hatch.release();
-        hatch.retract();
+       // hatch.release();
+        //hatch.retain();
 
     }
 
@@ -174,4 +177,6 @@ public class Robot extends TimedRobot {
     public void testPeriodic() {
     }
 
+
 }
+

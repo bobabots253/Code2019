@@ -2,17 +2,17 @@ package frc.robot.Misc;
 
 public class Constants {
 
-    public static final int kPCM_ID = 0; // PCM ID
+    public static final int kPCM_ID = 1; // PCM ID
 
     /* Driver Settings */
     public static final double kJoystickDeadband = 0.03; // Number between 0 and 1 representing how much of joystick is "dead" zone
     public static final double kTriggerDeadband = 0.05; // Number between 0 and 1 representing how much of trigger is "dead" zone
 
     public static final double kDriveExpScale = 1; // What power to put overall control to, (makes small inputs smaller for better control)
-    public static final double kTurnSens = 0.92; // Maximum normal turning rate (in percent of max) to allow robot to turn to, b/t 0 and 1
+    public static final double kTurnSens = 0.88; // Maximum normal turning rate (in percent of max) to allow robot to turn to, b/t 0 and 1
 
     public static final double kTurnInPlaceExpScale = 1; // What power to put turn-in-place turning to (makes small inputs smaller for better control)
-    public static final double kTurnInPlaceSens = 1; // Maximum turn-in-place rate (in percent of max) to allow robot to turn to, b/t 0 and 1
+    public static final double kTurnInPlaceSens = 0.94; // Maximum turn-in-place rate (in percent of max) to allow robot to turn to, b/t 0 and 1
 
     /* PID Loops */
     public static final double kF = 0.88/12; // Minimum value (in percent max speed) to move the robot, b/t 0 and 1
@@ -49,8 +49,8 @@ public class Constants {
     public static final int kEjectForward = 3; // Number between 0 and 7
     public static final int kEjectReverse = 1; // Number between 0 and 7
 
-    public static final int kRetainerForward = 7; // Number between 0 and 7
-    public static final int kRetainerReverse = 4; // Number between 0 and 7
+    public static final int kRetainerForward = 4; // Number between 0 and 7
+    public static final int kRetainerReverse = 7; // Number between 0 and 7
 
 
 }

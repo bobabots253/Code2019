@@ -36,7 +36,7 @@ public class VisionTrack extends Command {
     @Override
     protected void initialize(){
         Robot.oi.setLEDMode(LEDMode.ON);
-        Robot.oi.setPipeline(0);
+        Robot.oi.setPipeline(2);
         Robot.oi.setCamMode(CamMode.VISION);
         
     }

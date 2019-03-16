@@ -1,5 +1,6 @@
 package frc.robot.Hatch;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -7,6 +8,7 @@ import frc.robot.Misc.Constants;
 
 public class HatchSubsystem extends Subsystem {
 
+    Compressor compressor = new Compressor(Constants.kPCM_ID);
     public static DoubleSolenoid eject = new DoubleSolenoid(Constants.kPCM_ID, Constants.kEjectForward, Constants.kEjectReverse);
     public static DoubleSolenoid retainer = new DoubleSolenoid(Constants.kPCM_ID, Constants.kRetainerForward, Constants.kRetainerReverse);
 
@@ -56,6 +58,15 @@ public class HatchSubsystem extends Subsystem {
         } else {
             retain();
         }
+    }
+
+    public void compressorStop(){
+        compressor.stop();
+        
+    }
+
+    public void compressorOn(){
+        compressor.setClosedLoopControl(true);
     }
 
     @Override
