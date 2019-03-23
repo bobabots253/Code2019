@@ -96,6 +96,7 @@ public class Robot extends TimedRobot {
         m_autoSelected = m_chooser.getSelected();
         // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
         System.out.println("Auto selected: " + m_autoSelected);
+        oi.setPipeline(1);
     }
 
     /**
@@ -103,7 +104,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        hatch.retain();
+       
         Scheduler.getInstance().run();
         switch (m_autoSelected) {
         case kCustomAuto:
@@ -126,9 +127,6 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("PDP Energy", pdp.getTotalEnergy());
         SmartDashboard.putNumber("PDP Power", pdp.getTotalPower());
         SmartDashboard.putNumber("PDP Voltage", pdp.getVoltage());
-
-
-        
      
         boolean retainingHatch;
         boolean ejectionStatus;

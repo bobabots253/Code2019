@@ -101,6 +101,10 @@ public class OI {
 
         limelight = NetworkTableInstance.getDefault().getTable("limelight");
         Joystick2_10.whenPressed(new compressStop());
+        if(!(joystick2.getRawButton(2))){
+        dpadDOWN.whenPressed(new SpinPaired(-0.5, 0.5));
+        dpadDOWN.whenReleased(new SpinPaired(0, 0));
+        }
 
         if (Robot.shooter != null) {
             /*ButtonA.whenPressed(new SpinIndiv(1, Stage.LOWER));
@@ -110,9 +114,9 @@ public class OI {
             ButtonX.whenReleased(new SpinIndiv(0, Stage.HIGHER));*/
 
             //ButtonA.whenPressed(new SpinPaired(joystick2));
-            Joystick2_3.whenPressed(new SpinPaired(0.56, -0.56));
+            Joystick2_3.whenPressed(new SpinPaired(0.48, -0.48));
             Joystick2_3.whenReleased(new SpinPaired(0,0));
-            Joystick2_2.whenPressed(new SpinPaired(-0.56, 0.56));
+            Joystick2_2.whenPressed(new SpinPaired(-0.5, 0.5));
             Joystick2_2.whenReleased(new SpinPaired(0,0));
             Joystick2_1.whenPressed(new SpinPaired(joystick2));
             Joystick2_1.whenReleased(new SpinPaired(0,0));
@@ -127,7 +131,8 @@ public class OI {
 
         if (Robot.drivetrain != null) {
             ButtonRB.whileHeld(new GyroDrive());
-            triggerRight.whileHeld(new VisionTrack());
+            triggerRight.whileHeld(new VisionTrack(2));
+            triggerLeft.whileHeld(new VisionTrack(4));
         }
 
     }
@@ -224,6 +229,10 @@ public class OI {
         limelight.getEntry("pipeline").setNumber(val);
     }
 
+    public void getPipeline(){
+        SmartDashboard.putNumber("Pipeline", limelight.getEntry("getpipe").getDouble(0.0));
+    }
+
     /*
      * Methods for getting limelight values 
      */
@@ -244,6 +253,10 @@ public class OI {
 
     public boolean getTargetValid() {
         return limelight.getEntry("tv").getDouble(0) == 1;
+    }
+
+    public double getSkew(){
+        return limelight.getEntry("ts").getDouble(0.0);
     }
 
     /*

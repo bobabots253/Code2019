@@ -24,6 +24,9 @@ public class VisionTrack extends Command {
     private VisionController aim = new VisionController(aim_kP, aim_kI, aim_kD, 0.02);
     private VisionController distance = new VisionController(dist_kP, dist_kI, dist_kD, 0.02);
 
+    private int pipeline = 2;
+    //4 cargoship, 1 driver, 2 loading
+
     public VisionTrack() {
         requires(Robot.drivetrain);
 
@@ -33,16 +36,28 @@ public class VisionTrack extends Command {
 
     }
 
+    public VisionTrack(int pipeline){
+        this.pipeline = pipeline;
+
+        requires(Robot.drivetrain);
+
+        SmartDashboard.putNumber("kPAim", aim_kP);
+        SmartDashboard.putNumber("kIAim", aim_kI);
+        SmartDashboard.putNumber("kDAim", aim_kD);
+    }
+
     @Override
     protected void initialize(){
         Robot.oi.setLEDMode(LEDMode.ON);
-        Robot.oi.setPipeline(2);
+        Robot.oi.setPipeline(pipeline);
         Robot.oi.setCamMode(CamMode.VISION);
         
     }
 
     @Override
     protected void execute() {
+
+        //System.out.println(pipeline);
 
         double turn = Robot.oi.getTurnValue();
         double throttle = Robot.oi.getThrottleValue();
@@ -71,6 +86,14 @@ public class VisionTrack extends Command {
         if(Math.abs(heading_error) < 1){
             heading_error = 0;
         }
+
+        SmartDashboard.putNumber("skew", Robot.oi.getSkew());
+        if(Math.abs(Robot.oi.getSkew()) > 70 && Math.abs(Robot.oi.getSkew()) < 20){
+            heading_error = 0;
+        }
+
+
+        //skew band do tmr acceptable ranges ([-90, -70] [-0,-20])
 
         SmartDashboard.putNumber("distance_err", distance_error);
         SmartDashboard.putNumber("heading_error", heading_error);

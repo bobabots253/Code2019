@@ -11,8 +11,8 @@ public class Constants {
     public static final double kDriveExpScale = 1; // What power to put overall control to, (makes small inputs smaller for better control)
     public static final double kTurnSens = 0.88; // Maximum normal turning rate (in percent of max) to allow robot to turn to, b/t 0 and 1
 
-    public static final double kTurnInPlaceExpScale = 1; // What power to put turn-in-place turning to (makes small inputs smaller for better control)
-    public static final double kTurnInPlaceSens = 0.94; // Maximum turn-in-place rate (in percent of max) to allow robot to turn to, b/t 0 and 1
+    public static final double kTurnInPlaceExpScale = 2; // What power to put turn-in-place turning to (makes small inputs smaller for better control)
+    public static final double kTurnInPlaceSens = 0.8; // Maximum turn-in-place rate (in percent of max) to allow robot to turn to, b/t 0 and 1
 
     /* PID Loops */
     public static final double kF = 0.88/12; // Minimum value (in percent max speed) to move the robot, b/t 0 and 1
