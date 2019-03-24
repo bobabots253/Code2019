@@ -131,9 +131,9 @@ public class Robot extends TimedRobot {
         boolean retainingHatch;
         boolean ejectionStatus;
         if (HatchSubsystem.retainer.get() == Value.kForward) {
-            retainingHatch = true;
-        } else {
             retainingHatch = false;
+        } else {
+            retainingHatch = true;
         }
 
         if (HatchSubsystem.eject.get() == Value.kForward) {
