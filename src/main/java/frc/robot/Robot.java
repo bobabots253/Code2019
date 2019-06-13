@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
         oi = OI.getInstance();
 
         Robot.oi.setLEDMode(LEDMode.OFF);
-        Robot.oi.setPipeline(1);
+        Robot.oi.setPipeline(2);
 
     }
 
@@ -164,7 +164,7 @@ public class Robot extends TimedRobot {
     public void disabledInit() {
 
         Robot.oi.setLEDMode(LEDMode.OFF);
-        Robot.oi.setPipeline(1);
+        Robot.oi.setPipeline(2);
 
     }
 

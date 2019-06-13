@@ -24,7 +24,7 @@ public class VisionTrack extends Command {
     private VisionController aim = new VisionController(aim_kP, aim_kI, aim_kD, 0.02);
     private VisionController distance = new VisionController(dist_kP, dist_kI, dist_kD, 0.02);
 
-    private int pipeline = 2;
+    private int pipeline;
     //4 cargoship, 1 driver, 2 loading
 
     public VisionTrack() {
@@ -138,7 +138,7 @@ public class VisionTrack extends Command {
         Drivetrain.drive(0, 0);
 
         Robot.oi.setLEDMode(LEDMode.OFF);
-        Robot.oi.setPipeline(1);
+        Robot.oi.setPipeline(2);
         //Robot.oi.setCamMode(CamMode.DRIVER);
         
     }

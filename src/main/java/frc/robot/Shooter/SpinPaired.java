@@ -3,6 +3,7 @@ package frc.robot.Shooter;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.Drivetrain.Drivetrain;
 import frc.robot.Misc.Constants;
 import frc.robot.Misc.OI;
 
@@ -32,6 +33,11 @@ public class SpinPaired extends Command {
     
     public SpinPaired(Joystick stick){
         requires(Robot.shooter);
+
+        // Requires drivetrain in order to prevent motion during override (same stick)
+        requires(Robot.drivetrain);
+        Drivetrain.drive(0, 0);
+        
         this.input = InputType.SINGLE_JOYSTICK;
 
         this.stick = stick;

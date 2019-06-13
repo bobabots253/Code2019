@@ -13,14 +13,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class SmartDashControl extends Command {
-  double motorOutput =0;
   public SmartDashControl() {
     requires(Robot.shooter);
-    
-
-   // SmartDashboard.putNumber("Motor %", motorOutput);
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+  
   }
 
   // Called just before this Command runs the first time
@@ -31,11 +26,7 @@ public class SmartDashControl extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    SmartDashboard.putNumber("Motor %", motorOutput);
-    double yay = SmartDashboard.getNumber("s", motorOutput);
-    if(Robot.oi.joystick2.getRawButton(7)){
-    ShooterSubsystem.spin(yay);
-    }
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -47,7 +38,6 @@ public class SmartDashControl extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    ShooterSubsystem.spin(0);
   }
 
   // Called when another command which requires one or more of the same

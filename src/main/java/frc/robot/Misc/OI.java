@@ -29,14 +29,18 @@ import frc.robot.Shooter.SpinPaired;
 
 public class OI {
 
-    public Joystick joystick2 = new Joystick(2);
-    public Joystick joystick3 = new Joystick(3);
+    public Joystick operator = new Joystick(2);
 
+    private JoystickButton operator_1 = new JoystickButton(operator, 1);
+    private JoystickButton operator_2 = new JoystickButton(operator, 2);
+    private JoystickButton operator_3 = new JoystickButton(operator, 3);
+    private JoystickButton operator_6 = new JoystickButton(operator, 6);
+    private JoystickButton operator_7 = new JoystickButton(operator, 7);
+    private JoystickButton operator_8 = new JoystickButton(operator, 8);
+    private JoystickButton operator_10 = new JoystickButton(operator, 10);
+
+    // XBox Controller Declarations
     private XboxController xboxcontroller;
-    private JoystickButton Joystick2_3 = new JoystickButton(joystick2, 3);
-    private JoystickButton Joystick2_2 = new JoystickButton(joystick2, 2);
-    private JoystickButton Joystick2_1 = new JoystickButton(joystick2, 1);
-    private JoystickButton Joystick2_10 = new JoystickButton(joystick2, 10);
 
     private JoystickButton ButtonA;
     private JoystickButton ButtonB;
@@ -60,6 +64,7 @@ public class OI {
     private JoystickButton triggerLeft;
     private JoystickButton triggerRight;
 
+    // Sensor declarations
     private NetworkTable limelight;
     private double last_valid_x_offset = 0;
     private AHRS navX = new AHRS(SPI.Port.kMXP, (byte)200);
@@ -74,8 +79,6 @@ public class OI {
 
     public OI() {
         xboxcontroller = new XboxController(0);
-       // SmartDashboard.putData("Stop Compressor", new compressStop());
-
 
         ButtonA = new JoystickButton(xboxcontroller, 1);
         ButtonB = new JoystickButton(xboxcontroller, 2);
@@ -100,39 +103,40 @@ public class OI {
         triggerRight = new TriggerButton(xboxcontroller, Hand.kRight);
 
         limelight = NetworkTableInstance.getDefault().getTable("limelight");
-        Joystick2_10.whenPressed(new compressStop());
-        if(!(joystick2.getRawButton(2))){
-        dpadDOWN.whenPressed(new SpinPaired(-0.5, 0.5));
-        dpadDOWN.whenReleased(new SpinPaired(0, 0));
-        }
+
+        operator_10.whenPressed(new compressStop());
 
         if (Robot.shooter != null) {
-            /*ButtonA.whenPressed(new SpinIndiv(1, Stage.LOWER));
-            ButtonA.whenReleased(new SpinIndiv(0, Stage.LOWER));
+            
+            // Cargo shoot button
+            operator_3.whenPressed(new SpinPaired(0.48, -0.48));
+            operator_3.whenReleased(new SpinPaired(0,0));
 
-            ButtonX.whenPressed(new SpinIndiv(1, Stage.HIGHER));
-            ButtonX.whenReleased(new SpinIndiv(0, Stage.HIGHER));*/
+            // Cargo intake button
+            operator_2.whenPressed(new SpinPaired(-0.5, 0.5));
+            operator_2.whenReleased(new SpinPaired(0,0));
 
-            //ButtonA.whenPressed(new SpinPaired(joystick2));
-            Joystick2_3.whenPressed(new SpinPaired(0.48, -0.48));
-            Joystick2_3.whenReleased(new SpinPaired(0,0));
-            Joystick2_2.whenPressed(new SpinPaired(-0.5, 0.5));
-            Joystick2_2.whenReleased(new SpinPaired(0,0));
-            Joystick2_1.whenPressed(new SpinPaired(joystick2));
-            Joystick2_1.whenReleased(new SpinPaired(0,0));
+            // Speed override
+            operator_8.whenPressed(new SpinPaired(operator));
+            operator_8.whenReleased(new SpinPaired(0,0));
 
-            ButtonA.whenReleased(new RunCommand( () -> ShooterSubsystem.spin(0, 0)));
         }
 
         if (Robot.hatch != null) {
-            ButtonB.whenPressed(new RunCommand(() -> Robot.hatch.ejectHatch()));
-            ButtonY.whenPressed(new RunCommand(() -> Robot.hatch.alternate_retainer()));
+            // Hatch eject button
+            operator_6.whenPressed(new RunCommand(() -> Robot.hatch.ejectHatch()));
+            
+            // Hatch retain button
+            operator_7.whenPressed(new RunCommand(() -> Robot.hatch.alternate_retainer()));
         }
 
         if (Robot.drivetrain != null) {
-            ButtonRB.whileHeld(new GyroDrive());
-            triggerRight.whileHeld(new VisionTrack(2));
-            triggerLeft.whileHeld(new VisionTrack(4));
+            
+            // Trigger for vision
+            operator_1.whileHeld(new VisionTrack(1));
+
+            //ButtonRB.whileHeld(new GyroDrive());
+            //triggerLeft.whileHeld(new VisionTrack(4));
         }
 
     }
@@ -161,11 +165,11 @@ public class OI {
      */
     public double getThrottleValue() {
         // Controllers y-axes are natively up-negative, down-positive. returns negative
-        return -deadbandX(xboxcontroller.getY(Hand.kLeft), Constants.kJoystickDeadband);
+        return -deadbandX(operator.getY(), Constants.kJoystickDeadband);
     }
 
     public double getTurnValue() {
-        return deadbandX(xboxcontroller.getX(Hand.kRight), Constants.kJoystickDeadband);
+        return deadbandX(operator.getX(), Constants.kJoystickDeadband);
     }
 
     public double getLeftTrigger() {

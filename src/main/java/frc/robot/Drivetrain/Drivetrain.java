@@ -10,7 +10,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Misc.Constants;
+import frc.robot.Shooter.SmartDashControl;
 
 public class Drivetrain extends Subsystem {
 
@@ -37,7 +39,7 @@ public class Drivetrain extends Subsystem {
     // Sets up the Drivetrain to automatically run the teleoperated driving command
     // when no other commands are being run
     public void initDefaultCommand() {
-        setDefaultCommand(new Drive());
+        setDefaultCommand(new DriveArcade());
     }
 
     // Talon configuration should only run once so it goes in the constructor
@@ -83,6 +85,8 @@ public class Drivetrain extends Subsystem {
         // 10);
       //  rightMotorA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
        // rightMotorA.setSensorPhase(false);
+
+       SmartDashboard.putNumber("Speed Modifier", Constants.kDriveSens);
 
     }
 

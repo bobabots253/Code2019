@@ -26,6 +26,8 @@ public class Drive extends Command {
             double throttle = Robot.oi.getThrottleValue();
             double turn = Robot.oi.getTurnValue();
 
+            throttle = throttle * Constants.kDriveSens;
+
             SmartDashboard.putNumber("throttle", throttle);
             SmartDashboard.putNumber("turn", turn);
 
