@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Drivetrain.Drivetrain;
+import frc.robot.Climber.ClimberSubsystem;
 import frc.robot.Hatch.HatchSubsystem;
 import frc.robot.Hatch.compressStop;
 import frc.robot.Misc.OI;
@@ -40,6 +41,7 @@ public class Robot extends TimedRobot {
     public static Drivetrain drivetrain;
     public static ShooterSubsystem shooter;
     public static HatchSubsystem hatch;
+    public static ClimberSubsystem climber;
     public static OI oi;
 
     /**
@@ -55,10 +57,11 @@ public class Robot extends TimedRobot {
         drivetrain = Drivetrain.getInstance();
         shooter = ShooterSubsystem.getInstance();
         hatch = HatchSubsystem.getInstance();
+        climber = ClimberSubsystem.getInstance();
         oi = OI.getInstance();
 
-        Robot.oi.setLEDMode(LEDMode.OFF);
-        Robot.oi.setPipeline(1);
+        Robot.oi.setLEDMode(LEDMode.ON);
+        Robot.oi.setPipeline(2); // Sets to driver camera 
 
     }
 
@@ -96,7 +99,8 @@ public class Robot extends TimedRobot {
         m_autoSelected = m_chooser.getSelected();
         // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
         System.out.println("Auto selected: " + m_autoSelected);
-        oi.setPipeline(1);
+        Robot.oi.setLEDMode(LEDMode.ON);
+        oi.setPipeline(2); // Sets to driver camera
     }
 
     /**
@@ -104,7 +108,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-       
+        Robot.hatch.compressorOn();
         Scheduler.getInstance().run();
         switch (m_autoSelected) {
         case kCustomAuto:
@@ -153,6 +157,8 @@ public class Robot extends TimedRobot {
         shooter.resetEncoders();
         //compressor.stop();
         Drivetrain.setBrakeMode();
+        climber.retractFront();
+        climber.retractBack();
 
         // Returns all pistons to default positions when robot is first enabled
        // hatch.release();
@@ -164,7 +170,7 @@ public class Robot extends TimedRobot {
     public void disabledInit() {
 
         Robot.oi.setLEDMode(LEDMode.OFF);
-        Robot.oi.setPipeline(1);
+        Robot.oi.setPipeline(2); // Sets to driver mode
 
     }
 

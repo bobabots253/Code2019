@@ -52,5 +52,12 @@ public class Constants {
     public static final int kRetainerForward = 4; // Number between 0 and 7
     public static final int kRetainerReverse = 7; // Number between 0 and 7
 
+    /* Climber Solenoid IDs */
+    public static final int kClimbFront = 5;
+    public static final int kRetractFront = 6;
+
+    public static final int kClimbBack = 2;
+    public static final int kRetractBack = 0;
+
 
 }

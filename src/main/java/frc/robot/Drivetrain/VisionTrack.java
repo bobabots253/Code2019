@@ -137,8 +137,7 @@ public class VisionTrack extends Command {
     protected void end() {
         Drivetrain.drive(0, 0);
 
-        Robot.oi.setLEDMode(LEDMode.OFF);
-        Robot.oi.setPipeline(1);
+        Robot.oi.setPipeline(2);
         //Robot.oi.setCamMode(CamMode.DRIVER);
         
     }

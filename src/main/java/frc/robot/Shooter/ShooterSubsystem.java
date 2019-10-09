@@ -46,6 +46,8 @@ public class ShooterSubsystem extends Subsystem {
         motorHigh.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
         motorHigh.setSensorPhase(false);
 
+        
+
     }
 
     public static void spin(double lvolt, double hvolt) {

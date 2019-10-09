@@ -57,6 +57,9 @@ public class OI {
     private JoystickButton dpadUP_LEFT;
     private JoystickButton dpadNONE;
 
+    private JoystickButton menuButton;
+    private JoystickButton startButton;
+
     private JoystickButton triggerLeft;
     private JoystickButton triggerRight;
 
@@ -83,8 +86,8 @@ public class OI {
         ButtonY = new JoystickButton(xboxcontroller, 4);
         ButtonRB = new JoystickButton(xboxcontroller, 6);
         ButtonLB = new JoystickButton(xboxcontroller, 5);
-        ButtonRT = new JoystickButton(xboxcontroller, 7);
-        ButtonLT = new JoystickButton(xboxcontroller, 8);
+        menuButton = new JoystickButton(xboxcontroller, 7);
+        startButton = new JoystickButton(xboxcontroller, 8);
 
         dpadUP = new XBPovButton(xboxcontroller, UP);
         dpadUP_RIGHT = new XBPovButton(xboxcontroller, UP_RIGHT);
@@ -114,9 +117,11 @@ public class OI {
             ButtonX.whenReleased(new SpinIndiv(0, Stage.HIGHER));*/
 
             //ButtonA.whenPressed(new SpinPaired(joystick2));
-            Joystick2_3.whenPressed(new SpinPaired(0.48, -0.48));
+            Joystick2_3.whenPressed(new SpinPaired(0.65, -0.39));
+            //first num is top shooter, second num is bottom shooter
+            //top shooter is positive for outtaking and bottom shooter is negative for outtake
             Joystick2_3.whenReleased(new SpinPaired(0,0));
-            Joystick2_2.whenPressed(new SpinPaired(-0.5, 0.5));
+            Joystick2_2.whenPressed(new SpinPaired(-0.3, 0.3));
             Joystick2_2.whenReleased(new SpinPaired(0,0));
             Joystick2_1.whenPressed(new SpinPaired(joystick2));
             Joystick2_1.whenReleased(new SpinPaired(0,0));
@@ -131,8 +136,13 @@ public class OI {
 
         if (Robot.drivetrain != null) {
             ButtonRB.whileHeld(new GyroDrive());
-            triggerRight.whileHeld(new VisionTrack(2));
-            triggerLeft.whileHeld(new VisionTrack(4));
+            triggerRight.whileHeld(new VisionTrack(1)); // Right trigger -> calgames, same pipeline
+            triggerLeft.whileHeld(new VisionTrack(1)); // Left trigger -> calgames, same pipeline
+        }
+
+        if (Robot.climber != null){
+            menuButton.whenPressed(new RunCommand(() -> Robot.climber.alternateBack()));
+            startButton.whenPressed(new RunCommand(() -> Robot.climber.alternateFront()));
         }
 
     }
