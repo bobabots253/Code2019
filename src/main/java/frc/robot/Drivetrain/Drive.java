@@ -16,7 +16,7 @@ public class Drive extends Command {
     protected void execute() {
         
         double throttle = Robot.oi.getThrottleValue();
-        double turn = Robot.oi.getTurnValue();
+        double turn = -Robot.oi.getTurnValue();
         
         if(throttle != 0){
             left = throttle + throttle * turn;
